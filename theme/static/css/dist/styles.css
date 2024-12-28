@@ -2432,6 +2432,10 @@ select {
     font-weight: 600;
   }
 
+  .lg\:font-light {
+    font-weight: 300;
+  }
+
   .lg\:text-black {
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
