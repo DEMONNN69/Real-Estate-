@@ -635,67 +635,66 @@
     
 
     <div class="container relative">
-        <form id="contact-form" action="/contactus" method="POST" class="flex-col flex bg-black bg-opacity-60 backdrop-blur-xl justify-center tracking-wide max-w-2xl" style="font-family: Montserrat;">
+        <form id="contact-form" action="/contactus" method="POST" class="flex-col flex bg-black bg-opacity-60 backdrop-blur-xl justify-center tracking-wide max-w-2xl" style="font-family: Montserrat;" onsubmit="return validateForm()">
             <span
-                class="close absolute cursor-pointer top-0 right-0 w-10 text-4xl text-center font-light  hover:text-white hover:bg-red-500 text-red-800 m-2"
+                class="close absolute cursor-pointer top-0 right-0 w-10 text-4xl text-center font-light hover:text-white hover:bg-red-500 text-red-800 m-2"
                 onclick="document.querySelector('.container').style.display='none';">&times;</span>
             {% csrf_token %}
-
-            <div class="form-group font-light text-xl text-white text-center  uppercase" style="font-family: Cinzel;">
+    
+            <div class="form-group font-light text-xl text-white text-center uppercase" style="font-family: Cinzel;">
                 <input type="hidden" id="property" name="property" value="{{prop.title}}">
                 <input type="hidden" id="property_id" name="property_id" value="{{prop.id}}">
                 <label for="Property_name" class="font-extralight">{{prop.title}}</label>
             </div>
-
+    
             <div class="form-group">
                 <input type="text"
-                    class="bg-transparent form-group ring-0 focus:border-white focus:border-b-2 focus:ring-0 w-full text-white placeholder-white font-light" id="name"
-                    name="name"  placeholder="Full Name">
+                    class="bg-transparent ring-0 focus:border-white focus:border-b-2 focus:ring-0 w-full text-white placeholder-white font-light"
+                    id="name" name="name" placeholder="Full Name" required>
             </div>
-
-            <!-- Add this div where appropriate in your HTML body -->
+    
             <div id="recaptcha-container" class="my-4"></div>
-       
-                <input type="text"
-                    class="bg-transparent form-group ring-0 focus:border-white focus:border-b-2 focus:ring-0 w-full text-white placeholder-white font-light" id="phone_no"
-                    name="phone_no" placeholder="Contact No." required>
-                
-                <button type="button" id="send-otp-btn" onclick="sendOTP()"
-                    class="w-full bg-transparent border border-blue-500 lg:w-1/2 text-blue-500 uppercase hover:bg-blue-500 hover:text-white  px-2 py-1 font-light duration-300 self-center"  style="font-family: Cinzel;">
-                    Get OTP
-                </button>
-            
-
-            <!-- OTP verification input -->
-           
-                <input type="tel" id="otp" placeholder="Enter OTP"
-                    class="bg-transparent form-group ring-0 focus:border-white focus:border-b-2 focus:ring-0 w-full text-white placeholder-white font-light">
-                    
-                <button type="button" onclick="verifyOTP()" 
-                    class="w-full bg-transparent border border-green-600 text-green-600 uppercase lg:w-1/2  hover:bg-green-600 hover:text-white  px-2 py-1 active:bg-orange-600 font-light duration-300 self-center mb-3" style="font-family: Cinzel;">
-                    Verify OTP
-                </button>
-         
-            
-                <button type="button" id="resend-otp-btn" onclick="resendOTP()"
-                    class="w-full bg-transparent border border-orange-500 lg:w-1/2 text-orange-500 uppercase hover:bg-orange-500 hover:text-white  px-2 py-1 active:bg-orange-600 font-light duration-300 self-center" style="font-family: Cinzel;" disabled>
-                    Resend OTP (<span id="timer">60</span>s)
-                </button>
-            
-
-           
-
-            
-
-            <button id="submit-button" type="submit"
-                class="bg-transparent border w-full border-white text-white uppercase hover:bg-white hover:text-black px-2 py-2 active:bg-gray-100 font-light duration-300 lg:w-1/2 self-center" style="font-family: Cinzel;">
-                Confirm
+    
+            <input type="tel"
+                class="bg-transparent ring-0 focus:border-white focus:border-b-2 focus:ring-0 w-full text-white placeholder-white font-light"
+                id="phone_no" name="phone_no" placeholder="Contact No." pattern="[0-9]{10}" maxlength="10" required
+                title="Please enter a valid 10-digit phone number">
+    
+            <input type="email"
+                class="bg-transparent ring-0 focus:border-white focus:border-b-2 focus:ring-0 w-full text-white placeholder-white font-light"
+                id="email" name="email" placeholder="Email" required>
+    
+            <button type="submit"
+                class="w-full bg-transparent border border-blue-500 lg:w-1/2 text-blue-500 uppercase hover:bg-blue-500 hover:text-white px-2 py-1 font-light duration-300 self-center"
+                style="font-family: Cinzel;">
+                Inquiry
             </button>
         </form>
-
     </div>
-
     
+
+    <script>
+        function validateForm() {
+            const phone = document.getElementById('phone_no').value;
+            const email = document.getElementById('email').value;
+        
+            const phoneRegex = /^[0-9]{10}$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+            if (!phoneRegex.test(phone)) {
+                alert("Please enter a valid 10-digit phone number.");
+                return false;
+            }
+        
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+        
+            return true;
+        }
+        </script>
+        
 
 
     <script defer>
@@ -780,83 +779,83 @@
             }
         }
 
-        let otpVerified = false; // Flag to track OTP verification status
-        let timerInterval;
-        let resendButton = document.getElementById('resend-otp-btn');
-        let timerDisplay = document.getElementById('timer');
+        // let otpVerified = false; // Flag to track OTP verification status
+        // let timerInterval;
+        // let resendButton = document.getElementById('resend-otp-btn');
+        // let timerDisplay = document.getElementById('timer');
 
-        function sendOTP() {
-            const phone = document.getElementById("phone_no").value;
+        // function sendOTP() {
+        //     const phone = document.getElementById("phone_no").value;
 
 
-            if (!phone) {
-                alert("Please enter your phone number.");
-                return;
-            }
-            fetch('/otp_verification/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({ phone_no: phone })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("OTP Sent ");
-                    } else {
-                        alert("Failed To Send OTP " + data.error, "error");
-                    }
-                });
+        //     if (!phone) {
+        //         alert("Please enter your phone number.");
+        //         return;
+        //     }
+        //     fetch('/otp_verification/', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-CSRFToken': '{{ csrf_token }}'
+        //         },
+        //         body: JSON.stringify({ phone_no: phone })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 alert("OTP Sent ");
+        //             } else {
+        //                 alert("Failed To Send OTP " + data.error, "error");
+        //             }
+        //         });
 
-            // Start the timer for 60 seconds and disable the Resend button
-            startTimer(60);
-            resendButton.disabled = true;
-        }
-        function startTimer(duration) {
-            let timeLeft = duration;
+        //     // Start the timer for 60 seconds and disable the Resend button
+        //     startTimer(60);
+        //     resendButton.disabled = true;
+        // }
+        // function startTimer(duration) {
+        //     let timeLeft = duration;
 
-            timerInterval = setInterval(function () {
-                timeLeft--;
-                timerDisplay.textContent = timeLeft;
+        //     timerInterval = setInterval(function () {
+        //         timeLeft--;
+        //         timerDisplay.textContent = timeLeft;
 
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    resendButton.disabled = false;
-                    timerDisplay.textContent = "0";  // Reset timer text
-                }
-            }, 1000);
-        }
-        function resendOTP() {
-            // Logic to resend the OTP
-            console.log("OTP resent!");
-            sendOTP();
-            // Restart the timer after resending the OTP
-            startTimer(60);
-            resendButton.disabled = true;
-        }
-        function verifyOTP() {
-            const otp = document.getElementById('otp').value;
-            fetch('/verify_otp/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({ otp: otp })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        otpVerified = true; // Set flag to true if OTP is verified
-                        alert("OTP verified successfully!");
-                        document.getElementById('submit-button').disabled = false; // Enable the submit button
-                    } else {
-                        alert("Invalid OTP: " + data.error);
-                    }
-                });
-        }
+        //         if (timeLeft <= 0) {
+        //             clearInterval(timerInterval);
+        //             resendButton.disabled = false;
+        //             timerDisplay.textContent = "0";  // Reset timer text
+        //         }
+        //     }, 1000);
+        // }
+        // function resendOTP() {
+        //     // Logic to resend the OTP
+        //     console.log("OTP resent!");
+        //     sendOTP();
+        //     // Restart the timer after resending the OTP
+        //     startTimer(60);
+        //     resendButton.disabled = true;
+        // }
+        // function verifyOTP() {
+        //     const otp = document.getElementById('otp').value;
+        //     fetch('/verify_otp/', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-CSRFToken': '{{ csrf_token }}'
+        //         },
+        //         body: JSON.stringify({ otp: otp })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 otpVerified = true; // Set flag to true if OTP is verified
+        //                 alert("OTP verified successfully!");
+        //                 document.getElementById('submit-button').disabled = false; // Enable the submit button
+        //             } else {
+        //                 alert("Invalid OTP: " + data.error);
+        //             }
+        //         });
+        // }
 
         //hamburger code
 

@@ -164,7 +164,8 @@ def otp_verification(request):
         data = json.loads(request.body)
         phone_no = data.get('phone_no')
         data = json.loads(request.body)
-    
+
+
         # Generate and send OTP with 10-minute validity (600 seconds)
         totp = pyotp.TOTP(pyotp.random_base32(), interval=300)
         otp = totp.now()
@@ -197,6 +198,7 @@ def verify_otp(request):
         print(entered_otp)
         otp_secret_key = request.session.get('otp_secret_key')
         valid_time = request.session.get('valid_time')
+
         # Check if OTP is still valid
         if otp_secret_key and valid_time:
             valid_time = datetime.fromisoformat(valid_time)
@@ -214,26 +216,22 @@ def verify_otp(request):
 from django.shortcuts import redirect, render
 from datetime import datetime
 def abt_us(request):
-    if not request.session.get('otp_verified'):
-        return redirect('otp_verification')  # Redirect to OTP verification if not verified
-
+   
     if request.method == 'POST':
         property = request.POST.get("property")
         property_id = request.POST.get("property_id")
         name = request.POST.get("name")
         phone = request.POST.get("phone_no")
         email = request.POST.get("email")
-        print(name)
+        print(name,phone,email,property)
         # Save the inquiry if OTP was verified
-        if request.session.get('otp_verified'):
-            inquiry = inq(name=name, contactno=phone, email=email, property=property)
-            inquiry.save()
+      
+        inquiry = inq(name=name, contactno=phone, email=email, property=property)
+        inquiry.save()
 
             # Clear the session after successful inquiry
-            request.session.pop('otp_verified', None)
-            request.session.pop('otp_secret_key', None)
-            request.session.pop('valid_time', None)
-            messages.success(request, 'Your inquiry has been submitted successfully!')
+      
+        messages.success(request, 'Your inquiry has been submitted successfully!')
         return redirect(f'/prop_view/{property_id}')
 
 
