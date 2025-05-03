@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--r6_*szi%*ns646y!q!k#7e0rlf@7qcc&he$dzs1%!3y#hqij0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["ncpr-homes.onrender.com","127.0.0.1"]
+ALLOWED_HOSTS = ["ncpr-homes.onrender.com","127.0.0.1","www.ncprhomes.com","ncprhomes.com"]
 
 
 # Application definition
