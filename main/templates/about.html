@@ -5,45 +5,98 @@
 {%load static%}
 
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+    
+    .fade-in {
+        animation: fadeIn 0.8s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .hover-lift {
+        transition: transform 0.2s ease;
+    }
+    
+    .hover-lift:hover {
+        transform: translateY(-2px);
+    }
 </style>
-<div class=" p-8 md:p-16 text-white lg:backdrop-blur-sm">
-    <h1 class="text-3xl md:text-5xl font-light text-center uppercase" style="font-family: Cinzel;">About Us</h1>
-    <div class=" rounded-2xl lg:p-4 font-light " style="font-family: Montserrat">
-        <p class="mt-20 lg:mt-44 text-white text-justify  md:text-lg">NCPR Homes was established with a clear vision to
-            revolutionize the real estate industry by offering unparalleled expertise and personalized service. Our
-            mission is to guide clients through the complexities of real estate transactions, whether for investment or
-            personal use, ensuring they make informed decisions every step of the way. With a deep understanding of the
-            market and a commitment to excellence, we strive to be the trusted partner our clients can rely on.</p>
-        <p class="mt-4 text-white text-justify md:text-lg">At NCPR Homes, we believe that real estate is not just about
-            buying and selling properties; it's about creating lasting value and building communities. Our team of
-            seasoned professionals is dedicated to delivering tailored solutions that meet the unique needs and goals of
-            each client. We pride ourselves on our integrity, transparency, and ability to provide insightful advice
-            that empowers our clients to achieve their real estate objectives.</p>
-        <p class="mt-4 text-white text-justify md:text-lg"> Our company culture is rooted in a passion for real estate
-            and a dedication to client satisfaction. We take the time to understand our clients' aspirations and work
-            tirelessly to exceed their expectations. Whether you're a first-time homebuyer or a seasoned investor, NCPR
-            Homes is here to provide the guidance, resources, and support you need to navigate the real estate landscape
-            with confidence.</p>
-        <p class="mt-4 text-white text-justify md:text-lg">
-            NCPR Homes is more than just a real estate advisory firm; we are a community of professionals committed to
-            making a positive impact on the lives of our clients and the neighborhoods we serve. Our approach is
-            client-centric, focused on building long-term relationships based on trust and mutual respect. We invite you
-            to experience the NCPR Homes difference and discover how we can help you achieve your real estate dreams.
+
+<div class="min-h-screen p-4 md:p-16 text-white">
+    <!-- Header Section -->
+    <div class="fade-in max-w-6xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-light text-center mb-4" style="font-family: Cinzel;">
+            About <span class="text-blue-400">Us</span>
+        </h1>
+        <div class="w-24 h-1 bg-blue-400 mx-auto mb-12"></div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="max-w-4xl mx-auto rounded-2xl backdrop-blur-sm bg-black/30 p-8 md:p-12 font-light space-y-8" style="font-family: Montserrat">
+        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed">
+            NCPR Homes was established with a clear vision to revolutionize the real estate industry by offering unparalleled expertise and personalized service. Our mission is to guide clients through the complexities of real estate transactions, whether for investment or personal use, ensuring they make informed decisions every step of the way.
         </p>
 
+        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed">
+            At NCPR Homes, we believe that real estate is not just about buying and selling properties; it's about creating lasting value and building communities. Our team of seasoned professionals is dedicated to delivering tailored solutions that meet the unique needs and goals of each client.
+        </p>
 
-        <!-- Social Media Links -->
-        <div class="flex justify-center space-x-12 mt-16 uppercase" style="font-family: Cinzel;">
-            <a href="https://www.linkedin.com/company/ncpr-homes/"
-                class="text-blue-400 hover:text-white font-semibold ">LinkedIn</a>
+        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed">
+            Our company culture is rooted in a passion for real estate and a dedication to client satisfaction. We take the time to understand our clients' aspirations and work tirelessly to exceed their expectations. Whether you're a first-time homebuyer or a seasoned investor, NCPR Homes is here to provide the guidance, resources, and support you need.
+        </p>
+
+        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed">
+            NCPR Homes is more than just a real estate advisory firm; we are a community of professionals committed to making a positive impact on the lives of our clients and the neighborhoods we serve. Our approach is client-centric, focused on building long-term relationships based on trust and mutual respect.
+        </p>
+
+        <!-- Our Services Section -->
+        <div class="mt-10">
+            <h2 class="text-2xl text-blue-400 mb-6" style="font-family: Cinzel;">Our Comprehensive Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="fade-in p-4 bg-black/20 rounded-lg hover-lift">
+                    <h3 class="text-lg font-medium text-blue-300 mb-2">Property Consulting</h3>
+                    <p class="text-gray-200">Expert guidance on property selection, evaluation, and acquisition tailored to your unique requirements.</p>
+                </div>
+                <div class="fade-in p-4 bg-black/20 rounded-lg hover-lift">
+                    <h3 class="text-lg font-medium text-blue-300 mb-2">Investment Advisory</h3>
+                    <p class="text-gray-200">Strategic advice on real estate investments to maximize returns and build lasting wealth.</p>
+                </div>
+                <div class="fade-in p-4 bg-black/20 rounded-lg hover-lift">
+                    <h3 class="text-lg font-medium text-blue-300 mb-2">Property Management</h3>
+                    <p class="text-gray-200">Comprehensive management solutions for property owners including maintenance, tenant relations, and financial oversight.</p>
+                </div>
+                <div class="fade-in p-4 bg-black/20 rounded-lg hover-lift">
+                    <h3 class="text-lg font-medium text-blue-300 mb-2">Market Intelligence</h3>
+                    <p class="text-gray-200">Access to current market trends, property valuations, and area-specific insights for informed decision making.</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed mt-8">
+            With expertise across multiple cities and property types, NCPR Homes leverages cutting-edge technology and deep market knowledge to deliver exceptional results. Our team's combined experience and dedication to excellence ensure that every client interaction exceeds expectations and creates lasting value.
+        </p>
+    </div>
+
+    <!-- Social Media Links -->
+    <div class="fade-in max-w-4xl mx-auto mt-12 p-6">
+        <h3 class="text-center text-xl mb-8" style="font-family: Cinzel;">Connect With Us</h3>
+        <div class="flex justify-center space-x-8 md:space-x-12">
+            <a href="https://www.linkedin.com/company/ncpr-homes/" 
+               class="hover-lift flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 transition-all">
+                <span class="text-blue-400 font-semibold">LinkedIn</span>
+            </a>
             <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA"
-                class="text-red-400 hover:text-white font-semibold">YouTube</a>
+               class="hover-lift flex items-center space-x-2 px-4 py-2 rounded-lg bg-red-600/20 hover:bg-red-600/30 transition-all">
+                <span class="text-red-400 font-semibold">YouTube</span>
+            </a>
             <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/"
-                class="text-blue-600 hover:text-white font-semibold">Facebook</a>
+               class="hover-lift flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-800/20 hover:bg-blue-800/30 transition-all">
+                <span class="text-blue-400 font-semibold">Facebook</span>
+            </a>
         </div>
     </div>
 </div>

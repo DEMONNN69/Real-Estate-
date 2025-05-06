@@ -6,23 +6,31 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> NCPR-HOMES</title>
+    <title>NCPR-HOMES | Your Trusted Real Estate Partner</title>
     {% tailwind_css %}
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
-    </style>
-    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        /* Custom styles for fade-in and fade-out animations */
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Typography styles */
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .nav-link, .section-title {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Animations */
         .fade-in {
-            animation: fadeIn 0.3s forwards;
+            animation: fadeIn 0.5s forwards;
         }
 
         .fade-out {
@@ -32,625 +40,832 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: translateY(10px);
             }
-
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: translateY(0);
             }
         }
 
         @keyframes fadeOut {
             from {
                 opacity: 1;
-                transform: scale(1);
+                transform: translateY(0);
             }
-
             to {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: translateY(10px);
             }
         }
 
+        /* Typing animation */
         @keyframes typing {
             from {
                 width: 0;
             }
-
             to {
                 width: 100%;
             }
         }
 
-        .typing-text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            /* Ensure the text itself is centered */
-        }
-
         .typing-text span {
             display: inline-block;
             min-width: 16ch;
-            /* Adjust this value based on the length of your longest text */
-            text-align: center;
+            text-align: left;
         }
 
-        #achievements {
-            font-family: "IBM Plex Serif";
+        /* Hover effects */
+        .property-card {
+            transition: all 0.3s ease;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
-        .price {
-            font-family: "Cinzel";
-           
+        .property-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .property-card:hover .property-image {
+            transform: scale(1.05);
         }
 
-        select {
-            color: #333;
-            /* Default text color */
-            background-color: #f2f2f2;
-            /* Default background color */
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
         }
 
-        /* Change the color of all options */
-        select option {
-            color: #333;
-            /* Color of the option text */
-            background-color: #f2f2f2;
-            /* Background color of the option */
-        }
-        select option:hover {
-            color: #333;
-            /* Color of the option text */
-            background-color: #f2f2f2;
-            /* Background color of the option */
-        }
-
-
-        /* For styling the selected option */
-        select option:checked {
-            background-color: #f2f2f2;
-            /* Background color of the selected option */
-            color: #000;
-            /* Text color of the selected option */
-        }
-
-        /* Scrollbar styling for Chrome, Safari, and Edge */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-            /* Dark background for track */
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: transparent;
-            /* Dark gray thumb */
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
             border-radius: 10px;
-            border: 2px solid #1e1e1e;
-            /* Match track background to make thumb appear smaller */
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: transparent;
-            /* Lighter gray on hover */
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(113, 113, 122, 0.3);
+            border-radius: 10px;
         }
 
-  
-  /* Scrollbar styling for Firefox */
-  html {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #1e1e1e; /* Thumb color #888, track color #1e1e1e */
-  }
-  
-  html:hover {
-    scrollbar-color: #555 #1e1e1e; /* Change thumb color on hover */
-  }
-  
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(113, 113, 122, 0.5);
+        }
+        
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+        }
+        
+        /* Custom select styling */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1em;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="{% static 'js/pincode.js' %}"></script>
-  
 </head>
-<script>document.addEventListener('DOMContentLoaded', function () {
-    // Find the message bar and progress bar elements
-    var messageBar = document.getElementById('message-bar');
-    var progressBar = document.getElementById('progress-bar');
 
-    if (messageBar && progressBar) {
-        // Set initial width of the progress bar to 100%
-        progressBar.style.width = '100%';
+<body class="bg-white">
 
-        // Duration for how long the message bar will be visible (5 seconds)
-        var duration = 5000;
-
-        // Use CSS transitions to animate the progress bar in reverse
-        progressBar.style.transition = `width ${duration}ms linear`;
-        setTimeout(() => {
-            progressBar.style.width = '0%';
-        }, 0);
-
-        // Hide the message bar after the duration
-        setTimeout(function () {
-            messageBar.style.display = 'none';
-        }, duration);
-    }
-});
-
-// Function to manually hide the message bar when close button is clicked
-function hideMessageBar() {
-    var messageBar = document.getElementById('message-bar');
-    if (messageBar) {
-        messageBar.style.display = 'none';
-    }
-}
-</script>
-<body class="bg-black uppercase"  style="font-family: Cinzel;">
-
-
-    >{% if messages %}
-    <div id="message-bar"
-        class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex flex-col items-center" >
+    <!-- Notification Messages -->
+    {% if messages %}
+    <div id="message-bar" class="fixed top-6 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-green-500 text-white px-6 py-4 rounded-lg shadow-xl flex flex-col items-center z-50">
         <div class="flex justify-between items-center w-full">
-
-            <button onclick="hideMessageBar()" class="text-white hover:text-red-500">&times;</button>
+            <span class="font-medium">Notification</span>
+            <button onclick="hideMessageBar()" class="text-white hover:text-red-200 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
         </div>
         {% for message in messages %}
         <p class="mt-2 text-center">{{ message }}</p>
         {% endfor %}
-        <div class="relative w-full h-1 bg-white mt-4 rounded-full">
-            <!-- Progress Bar that runs in reverse -->
-            <div id="progress-bar" class="absolute left-0 top-0 h-full bg-orange-400 rounded-full"></div>
+        <div class="relative w-full h-1 bg-white mt-4 rounded-full overflow-hidden">
+            <div id="progress-bar" class="absolute left-0 top-0 h-full bg-green-300 rounded-full"></div>
         </div>
     </div>
     {% endif %}
 
-    <div class="bg-image bg-[url('/media/icons/bgimage.jpg')] h-[20rem] lg:h-[40rem] w-full bg-no-repeat bg-cover">
+    <!-- Header Section with Hero -->
+    <header class="relative">
+        <!-- Navigation Bar - Fixed with better mobile styling -->
+        <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-sm" id="navbar">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex items-center justify-between">
+                    <!-- Logo -->
+                    <a href="/" class="flex items-center space-x-2">
+                        <img src="/media/icons/image1.png" alt="NCPR Homes" class="h-8 md:h-10">
+                    </a>
 
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="/" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">HOME</a>
+                        <a href="/contact_agent" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">CONTACT</a>
+                        <a href="/services" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">SERVICES</a>
+                        <a href="/about" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">ABOUT</a>
+                    </div>
 
-        <div class="navbar-lg lg:hidden hidden flex flex-col bg-transparent text-white font-medium shadow-lg rounded-lg p-4 absolute mt-12 lg:m-0 lg:w-fit w-full h-full z-10 space-y-4 "
-            id="menu">
-            <a href="/ "
-                class="border-b p-3 lg:border-none lg:text-lg  hover:backdrop-blur-xl ">Home</a>
-                <a href="/contact_agent"
-                class="border-b p-3 lg:border-none  lg:text-lg  hover:backdrop-blur-xl ">Contact</a>
-                <a href="/services"
-                class="border-b p-3 lg:border-none lg:text-lg  hover:backdrop-blur-xl ">Services</a>
-            <a href="/about"
-                class="border-b p-3 lg:border-none lg:text-lg  hover:backdrop-blur-xl ">About</a>
-            
-            
+                    <!-- Mobile Navigation Toggle -->
+                    <button class="md:hidden text-gray-900 focus:outline-none" id="hamburger">
+                        <i data-lucide="menu" id="hamburger-img" class="w-6 h-6"></i>
+                        <i data-lucide="x" id="hamburger-close" class="w-6 h-6 hidden"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu (hidden by default) -->
+            <div class="mobile-menu hidden md:hidden bg-white shadow-lg rounded-b-lg absolute w-full z-50 transform transition-transform duration-300 origin-top" id="menu">
+                <div class="container mx-auto px-4 py-3 space-y-4" style="font-family: 'Cinzel', serif;">
+                    <a href="/" class="block py-2 text-gray-800 hover:text-orange-600 border-b border-gray-100">HOME</a>
+                    <a href="/contact_agent" class="block py-2 text-gray-800 hover:text-orange-600 border-b border-gray-100">CONTACT</a>
+                    <a href="/services" class="block py-2 text-gray-800 hover:text-orange-600 border-b border-gray-100">SERVICES</a>
+                    <a href="/about" class="block py-2 text-gray-800 hover:text-orange-600">ABOUT</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section with Background Image -->
+        <div class="bg-cover bg-center min-h-screen h-auto pb-12 relative flex items-center pt-24 md:pt-16" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/media/photos/bgimage.jpg');">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-4 leading-tight" style="font-family: 'Montserrat', sans-serif;">
+                        Discover Your <span id="typing-content" class="text-orange-300 inline"></span> <br>
+                         With Confidence
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-100 mb-8 font-light" style="font-family: 'Inter', sans-serif;">
+                        We help you navigate the real estate market to find the ideal property that matches your lifestyle and investment goals
+                    </p>
+                    
+                    <!-- Search Box with Clean Design -->
+                    <div class="relative mt-8">
+                        <!-- Property Search Box -->
+                        <div class="bg-white bg-opacity-95 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden relative z-10">
+                            <form method="GET" action="{% url 'filteroption'%}" class="flex flex-col md:flex-row">
+                                <div class="flex-1 p-3 md:border-r border-gray-100">
+                                    <label for="city" class="block text-xs text-gray-500 mb-1">Location</label>
+                                    <div class="relative">
+                                        <i data-lucide="map-pin" class="w-4 h-4 absolute left-3 top-3 text-orange-500"></i>
+                                        <select id="city" name="city" class="w-full h-10 pl-9 pr-8 bg-white border border-gray-200 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                            <option value="City" class="text-gray-700">Select City</option>
+                                            {% for city in cities %}
+                                            <option value="{{ city }}" class="text-gray-700">{{ city }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-1 p-3 md:border-r border-gray-100">
+                                    <label for="size" class="block text-xs text-gray-500 mb-1">Property Size</label>
+                                    <div class="relative">
+                                        <i data-lucide="home" class="w-4 h-4 absolute left-3 top-3 text-orange-500"></i>
+                                        <select id="size" name="size" class="w-full h-10 pl-9 pr-8 bg-white border border-gray-200 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                            <option value='0' class="text-gray-700">Any Size</option>
+                                            {% for size in bedrooms %}
+                                            <option value="{{ size }}" class="text-gray-700">{{ size }} BHK</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-1 p-3">
+                                    <label for="price_range" class="block text-xs text-gray-500 mb-1">Budget</label>
+                                    <div class="relative">
+                                        <i data-lucide="indian-rupee" class="w-4 h-4 absolute left-3 top-3 text-orange-500"></i>
+                                        <select id="price_range" name="price_range" class="w-full h-10 pl-9 pr-8 bg-white border border-gray-200 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                            <option value='0' class="text-gray-700">Any Budget</option>
+                                            <option value="10" class="text-gray-700">10-20 lakh</option>
+                                            <option value="20" class="text-gray-700">20-30 lakh</option>
+                                            <option value="30" class="text-gray-700">30-50 lakh</option>
+                                            <option value="50" class="text-gray-700">50-70 lakh</option>
+                                            <option value="70" class="text-gray-700">70-90 lakh</option>
+                                            <option value="1" class="text-gray-700">Above 1Cr</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-3 flex items-end">
+                                    <button type="submit" class="w-full md:w-auto h-10 px-6 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-md transition duration-300 flex items-center justify-center">
+                                        <i data-lucide="search" class="w-4 h-4 mr-2"></i>
+                                        Search
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </header>
 
-        <div class="navbar flex justify-between bg-transparent p-2 w-screen items-center sticky z-50 top-0 ">
-            <div
-                class="navbar-lg hidden flex flex-col lg:bg-transparent lg:shadow-none rounded-lg lg:static lg:ml-2 lg:w-fit lg:space-x-14 lg:block lg:text-white  overflow-hidden  ">
-                <a href=" " class=" lg:border-none   hover:text-black duration-300">HOME</a>
-                <a href="/contact_agent" class=" lg:border-none    hover:text-black duration-300 uppercase">Contact</a>
-                <a href="/services" class=" lg:border-none   hover:text-black duration-300 uppercase">Services</a>
-                <a href="/about" class="lg:border-none    hover:text-black duration-300 uppercase">About</a>
-               
+    <!-- Stats Section -->
+    <section class="py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                <div class="flex items-center">
+                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                        <i data-lucide="users" class="w-6 h-6 text-orange-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-gray-900">1K+</p>
+                        <p class="text-gray-600">Happy Customers</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                        <i data-lucide="building" class="w-6 h-6 text-orange-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-gray-900">500+</p>
+                        <p class="text-gray-600">Properties</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                        <i data-lucide="map" class="w-6 h-6 text-orange-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-gray-900">10+</p>
+                        <p class="text-gray-600">Cities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Categories -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- Section Heading -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-3" style="font-family: 'Montserrat', sans-serif;">Find Your Ideal Property</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto" style="font-family: 'Inter', sans-serif;">Browse through our carefully curated selection of properties to find your perfect match</p>
+            </div>
+
+            <!-- Categories -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="/special_filter/2" class="group block">
+                    <div class="relative overflow-hidden rounded-xl shadow-md h-64 sm:h-72">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-70 transition-opacity group-hover:opacity-80"></div>
+                        <img src="/media/photos/download_2.jpeg" alt="Ready to Move" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="key" class="w-5 h-5 text-orange-300 mr-2"></i>
+                                <h3 class="text-white text-lg font-bold">Ready to Move</h3>
+                            </div>
+                            <p class="text-gray-200 text-sm">Immediate possession</p>
+                        </div>
+                    </div>
+                </a>
                 
-            </div>
-            <div class="hamburger lg:hidden flex items-center" id="hamburger">
-                <!-- Default Image -->
-                <svg id="hamburger-img" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19"></path>
-                  </svg>
-                  
-                  
-                <!-- SVG (hidden initially) -->
-                <svg xmlns="http://www.w3.org/2000/svg" id="hamburger-svg" class="h-8 hidden" viewBox="0 0 24 24">
-                  <path
-                    fill="none"
-                    stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19"
-                    id="hamburger-path"
-                  >
-                    <animate
-                      id="svg-animation"
-                      fill="freeze"
-                      attributeName="d"
-                      dur="0.4s"
-                      values="M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19;
-                              M5 5L12 12L19 5M12 12H12M5 19L12 12L19 19"
-                      begin="indefinite"
-                    />
-                  </path>
-                </svg>
-              </div>
-            
-            <div class="company-logo mr-[4vw] lg:ml-[8vw]  lg:order-2 md:m-0">
-                <img src="/media/icons/image1.png" alt="harsh" class="h-8 lg:h-12">
-            </div>
-            <div class="invisible lg:w-1/3 lg:order-3 ">
-            </div>
-        </div>
-
-        <div class=" flex justify-center items-center mt-16 lg:mt-40 lg:mb-20 h-0">
-            <div class="typing-text text-2xl lg:text-3xl text-black h-6 uppercase">
-                <span id="typing-content"></span>
-            </div>
-
-        </div>
-
-        <div
-            class=" filters flex justify-center items-center w-[90vw] lg:w-[60vw] mx-[5vw] lg:mx-[20vw] mb-4 bg-transparent sm:border lg:border-none border-white m-1 bg-white  bg-opacity-20 rounded-3xl mt-28 lg:mt-14 shadow-2xl shadow-black">
-            <form method="GET" action="{% url 'filteroption'%}" class=" flex items-center">
-                <select id="city" name="city"
-                    class=" h-10 w-24 lg:w-32 border-none bg-transparent overflow-y-scroll text-white  lg:text-black  focus:outline-none focus:ring-0 focus:border-transparent ">
-
-                    <option value="City" class="text-sm">City</option>
-                    {% for city in cities %}
-                    <option value="{{ city }}" class="text-sm ">{{ city }}</option>
-                    {% endfor %}
-                </select>
-
-                <select id="size" name="size"
-                    class=" h-10 border-none bg-transparent overflow-y-scroll text-white lg:text-black focus:outline-none focus:ring-0 focus:border-transparent w-24 lg:w-28">
-                    <option value='0' class="text-sm inh">Size</option>
-                    {% for size in bedrooms %}
-                    <option value="{{ size }}" class="text-sm">{{ size }} BHK</option>
-                    {% endfor %}
-                </select>
-
-
-                <select id="price_range" name="price_range"
-                    class=" h-10 w-24 border-none bg-transparent overflow-y-scroll text-white  lg:text-black focus:outline-none focus:ring-0 focus:border-transparent lg:w-32">
-                    <option value='0' class="text-sm">Price</option>
-                    <option value="10" class="text-sm">10-20 lakh</option>
-                    <option value="20" class="text-sm">20-30 lakh</option>
-                    <option value="30" class="text-sm">30-50 lakh</option>
-                    <option value="50" class="text-sm">50-70 lakh</option>
-                    <option value="70" class="text-sm">70-90 lakh</option>
-                    <option value="1" class="text-sm">Above 1Cr</option>
-                </select>
-
-                <button
-                    class="bg-transparent lg:hidden text-white md:block  font-semibold border-none duration-300 translate-y-1 pl-2 pb-2 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
-                        viewBox="0,0,256,256">
-                        <g fill="#ffffff " fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-                            font-family="none" font-weight="none" font-size="none" text-anchor="none"
-                            style="mix-blend-mode: normal">
-                            <g transform="scale(9.84615,9.84615)">
-                                <path
-                                    d="M10,0.1875c-5.42187,0 -9.8125,4.39063 -9.8125,9.8125c0,5.42188 4.39063,9.8125 9.8125,9.8125c2.28906,0 4.39453,-0.80859 6.0625,-2.125l0.875,0.875c-0.36719,0.69141 -0.23828,1.57422 0.34375,2.15625l4.59375,4.625c0.71484,0.71484 1.87891,0.71484 2.59375,0l0.875,-0.875c0.71484,-0.71484 0.71484,-1.87891 0,-2.59375l-4.625,-4.59375c-0.58594,-0.58594 -1.46484,-0.6875 -2.15625,-0.3125l-0.875,-0.875c1.32422,-1.67187 2.125,-3.79297 2.125,-6.09375c0,-5.42187 -4.39062,-9.8125 -9.8125,-9.8125zM10,2c4.41797,0 8,3.58203 8,8c0,4.41797 -3.58203,8 -8,8c-4.41797,0 -8,-3.58203 -8,-8c0,-4.41797 3.58203,-8 8,-8zM4.9375,7.46875c-0.51562,0.83594 -0.8125,1.82031 -0.8125,2.875c0,3.02734 2.44141,5.46875 5.46875,5.46875c1.16797,0 2.26563,-0.37891 3.15625,-1c-0.23828,0.02734 -0.50391,0.03125 -0.75,0.03125c-3.91406,0 -7.0625,-3.14844 -7.0625,-7.0625c0,-0.10547 -0.00391,-0.20703 0,-0.3125z">
-                                </path>
-                            </g>
-                        </g>
-                    </svg>
-                </button>
-                <button
-                    class="bg-transparent hidden lg:block text-white md:hidden font-semibold border-none duration-300 translate-y-1 pl-2 align-middle leading-none pb-2 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
-                        viewBox="0,0,256,256">
-                        <g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-                            font-family="none" font-weight="none" font-size="none" text-anchor="none"
-                            style="mix-blend-mode: normal">
-                            <g transform="scale(9.84615,9.84615)">
-                                <path
-                                    d="M10,0.1875c-5.42187,0 -9.8125,4.39063 -9.8125,9.8125c0,5.42188 4.39063,9.8125 9.8125,9.8125c2.28906,0 4.39453,-0.80859 6.0625,-2.125l0.875,0.875c-0.36719,0.69141 -0.23828,1.57422 0.34375,2.15625l4.59375,4.625c0.71484,0.71484 1.87891,0.71484 2.59375,0l0.875,-0.875c0.71484,-0.71484 0.71484,-1.87891 0,-2.59375l-4.625,-4.59375c-0.58594,-0.58594 -1.46484,-0.6875 -2.15625,-0.3125l-0.875,-0.875c1.32422,-1.67187 2.125,-3.79297 2.125,-6.09375c0,-5.42187 -4.39062,-9.8125 -9.8125,-9.8125zM10,2c4.41797,0 8,3.58203 8,8c0,4.41797 -3.58203,8 -8,8c-4.41797,0 -8,-3.58203 -8,-8c0,-4.41797 3.58203,-8 8,-8zM4.9375,7.46875c-0.51562,0.83594 -0.8125,1.82031 -0.8125,2.875c0,3.02734 2.44141,5.46875 5.46875,5.46875c1.16797,0 2.26563,-0.37891 3.15625,-1c-0.23828,0.02734 -0.50391,0.03125 -0.75,0.03125c-3.91406,0 -7.0625,-3.14844 -7.0625,-7.0625c0,-0.10547 -0.00391,-0.20703 0,-0.3125z">
-                                </path>
-                            </g>
-                        </g>
-                    </svg>
-                </button>
-            </form>
-        </div>
-        <div class=" section-achievements text-white text-lg my-6 lg:my-16   space-x-3 mx-2 flex justify-center ">
-            <div class="inline-flex items-center space-x-2">
-                <img src="/media/icons/achv1.png" alt="" class="h-8 w-8  ">
-                <span class="flex items-center"><span class="text-xl mr-2 font-semibold">1K+ </span><span
-                        class="smile lg:font-semibold">Happy Customers</span>
-            </div>
-        </div>
-        <!-- NearBy City Section -->
-        <div>
-
-
-            <div class="" style="color: white;" id="output"></div>
-            <div class="projects m-2 pt-2 space-y-2 lg:space-y-5 px-2">
-                <h2 class=" text-lg ml-2 text-white">   <span id="Nearby-city-name"></span></h2>
-                <div class="flex space-x-2 lg:space-x-4 pb-5 lg:pb-10 " style="font-family: Montserrat;" id="properties-container">
-                    <!-- Properties will be dynamically inserted here -->
-                </div> 
-            </div>
-            
-        <div class="projects m-2 pt-2 lg:space-y-5 px-2">
-            <h2 class=" text-lg ml-2 text-white my-5">All ></h2>
-            <div class="flex space-x-2 overflow-x-scroll lg:space-x-4 pb-5 lg:pb-10 " style="font-family: Montserrat;">
-                {% for property in properties %}
-                <a href="prop_view/{{property.id}}">
-                    <div class="property w-[180px] h-[310px] lg:w-[250px] lg:h-[428px] flex flex-col relative group">
-                        <div class="display h-full w-full overflow-hidden rounded-2xl">
-                            <img src="/media/{{property.main_img}}" alt="Beautiful Family Home"
-                                class="object-cover object-center w-full h-full group-hover:scale-110 duration-500">
-                        </div>
-                        <div
-                            class="description h-[43%] lg:h-[37%] lg:mt-[111%] w-full space-y-2 px-2 py-1 mt-[100%] absolute backdrop-blur-lg rounded-2xl lg:space-y-4 text-sm">
-                            <h2
-                                class="font-semibold !text-xl price">
-                                ₹ {{ property.price2 }}</h2>
-                            <div class="flex gap-x-5 h-6 overflow-hidden text-white">
-                                <p> {{ property.title }}</p>
-                                <p>|</p>
-                                <p>{{ property.bedrooms }}BHK</p>
+                <a href="/special_filter/1" class="group block">
+                    <div class="relative overflow-hidden rounded-xl shadow-md h-64 sm:h-72">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-70 transition-opacity group-hover:opacity-80"></div>
+                        <img src="/media/photos/download_3.jpeg" alt="Under Construction" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="hammer" class="w-5 h-5 text-amber-300 mr-2"></i>
+                                <h3 class="text-white text-lg font-bold">Under Construction</h3>
                             </div>
-                            <p class="text-white"> {{ property.city }}- {{property.zip_code }}</p>
-                            <div
-                                class="flex justify-between items-center rounded-full border border-black px-2 -mx-1">
-                                <span class="text-xs">
-                                    More details
-                                </span>
-                                <span class="group-hover:rotate-[360deg] duration-500">
-                                    <img src="/media/icons/arrow.png" alt="" class="h-6">
-                                </span>
-                            </div>
-
+                            <p class="text-gray-200 text-sm">Future-ready homes</p>
                         </div>
                     </div>
                 </a>
-
-                {% endfor %}
-            </div>
-
-
-            <a href="/special_filter/2">
-                <h2 class=" text-lg ml-2 text-white my-5">Ready to move ></h2>
-            </a>
-            <div class="flex space-x-2 overflow-x-scroll lg:space-x-4 pb-5 lg:pb-10 " style="font-family: Montserrat;">
-                {% for property in rtm %}
-                <a href="prop_view/{{property.id}}">
-                    <div class="property w-[180px] h-[310px] lg:w-[250px] lg:h-[428px] flex flex-col relative group">
-                        <div class="display h-full w-full overflow-hidden rounded-2xl">
-                            <img src="/media/{{property.main_img}}" alt="Beautiful Family Home"
-                                class="object-cover object-center w-full h-full group-hover:scale-110 duration-500">
-                        </div>
-                        <div
-                            class="description h-[43%] lg:h-[37%] lg:mt-[111%] w-full space-y-2 px-2 py-1 mt-[100%] absolute backdrop-blur-lg rounded-2xl lg:space-y-4 text-sm">
-                            <h2
-                                class="font-semibold !text-xl price">
-                                ₹ {{ property.price2 }}</h2>
-                            <div class="flex gap-x-5 h-6 overflow-hidden text-white">
-                                <p> {{ property.title }}</p>
-                                <p>|</p>
-                                <p>{{ property.bedrooms }}BHK</p>
+                
+                <a href="/special_filter/3" class="group block">
+                    <div class="relative overflow-hidden rounded-xl shadow-md h-64 sm:h-72">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-70 transition-opacity group-hover:opacity-80"></div>
+                        <img src="/media/photos/download_4.jpeg" alt="Cost Efficient" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="tag" class="w-5 h-5 text-green-300 mr-2"></i>
+                                <h3 class="text-white text-lg font-bold">Cost Efficient</h3>
                             </div>
-                            <p class="text-white"> {{ property.city }}- {{property.zip_code }}</p>
-                            <div
-                                class="flex justify-between items-center rounded-full border border-black px-2 -mx-1">
-                                <span class="text-xs">
-                                    More details
-                                </span>
-                                <span class="group-hover:rotate-[360deg] duration-500">
-                                    <img src="/media/icons/arrow.png" alt="" class="h-6">
-                                </span>
-                            </div>
-
+                            <p class="text-gray-200 text-sm">Budget-friendly options</p>
                         </div>
                     </div>
                 </a>
+                
+                <a href="/contact_agent" class="group block">
+                    <div class="relative overflow-hidden rounded-xl shadow-md h-64 sm:h-72">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-70 transition-opacity group-hover:opacity-80"></div>
+                        <img src="/media/photos/contactus-fin_upscale.jpeg" alt="Contact Us" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="user" class="w-5 h-5 text-purple-300 mr-2"></i>
+                                <h3 class="text-white text-lg font-bold">Consult an Expert</h3>
+                            </div>
+                            <p class="text-gray-200 text-sm">Get personalized assistance</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
 
+    <!-- Nearby City Section -->
+    <section class="py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800" style="font-family: 'Montserrat', sans-serif;"><span id="Nearby-city-name">Nearby Properties</span></h2>
+                <a href="#" class="text-orange-600 hover:text-orange-800 flex items-center text-sm font-medium">
+                    View All
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                </a>
+            </div>
+            <div class="flex space-x-4 pb-2 overflow-x-auto custom-scrollbar" id="properties-container">
+                <!-- Properties will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- All Properties Section -->
+    <section class="py-12 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-bold text-gray-800" style="font-family: 'Montserrat', sans-serif;">All Properties</h2>
+                <a href="#" class="text-orange-600 hover:text-orange-800 flex items-center text-sm font-medium">
+                    View All
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {% for property in properties|slice:":4" %}
+                <a href="prop_view/{{property.id}}" class="property-card bg-white rounded-lg overflow-hidden shadow-md block">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="/media/{{property.main_img}}" alt="{{ property.title }}" class="property-image w-full h-full object-cover">
+                        <div class="absolute top-0 right-0 bg-orange-600 text-white text-xs font-medium px-2 py-1 m-2 rounded">
+                            {{ property.property_status|default:"For Sale" }}
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">₹ {{ property.price2 }}</h3>
+                        <div class="flex items-center text-gray-700 text-sm mb-1">
+                            <p>{{ property.title }}</p>
+                            <span class="mx-1">•</span>
+                            <p>{{ property.bedrooms }} BHK</p>
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm mb-3">
+                            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i>
+                            <p>{{ property.city }} - {{ property.zip_code }}</p>
+                        </div>
+                        
+                        <div class="pt-3 border-t border-gray-100 flex justify-between items-center">
+                            <span class="text-xs text-orange-600 font-medium">More details</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-orange-600 transform transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </div>
+                    </div>
+                </a>
                 {% endfor %}
             </div>
+            
+            <div class="mt-8 text-center md:hidden">
+                <a href="#" class="inline-block px-5 py-2 border border-orange-600 text-orange-600 rounded-md hover:bg-orange-600 hover:text-white transition-colors duration-300 text-sm font-medium">
+                    View All Properties
+                </a>
+            </div>
+        </div>
+    </section>
 
-            <a href="/special_filter/1">
-                <h2 class=" text-lg ml-2 text-white my-5">Under Construction ></h2>
-            </a>
-            <div class="flex space-x-2 overflow-x-scroll lg:space-x-4 pb-5 lg:pb-10 " style="font-family: Montserrat;">
+    <!-- Ready to Move Properties -->
+        <section class="py-12 md:py-16">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800" style="font-family: 'Montserrat', sans-serif;">Ready to Move</h2>
+                        <p class="text-gray-600 text-sm mt-1">Properties available for immediate possession</p>
+                    </div>
+                    <a href="/special_filter/2" class="text-orange-600 hover:text-orange-800 flex items-center text-sm font-medium">
+                        View All
+                        <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+                
+                <div class="flex space-x-4 overflow-x-auto custom-scrollbar pb-4">
+                    {% for property in rtm %}
+                    <a href="prop_view/{{property.id}}" class="property-card flex-shrink-0 bg-white rounded-lg overflow-hidden shadow-md w-72 sm:w-[280px] lg:w-[300px]">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="/media/{{property.main_img}}" alt="{{ property.title }}" class="property-image w-full h-full object-cover">
+                            <div class="absolute top-0 right-0 bg-green-600 text-white text-xs font-medium px-2 py-1 m-2 rounded flex items-center">
+                                <i data-lucide="key" class="w-3.5 h-3.5 mr-1"></i>
+                                Ready to Move
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg text-gray-800">₹ {{ property.price2 }}</h3>
+                            <div class="flex items-center text-gray-700 text-sm mb-1">
+                                <p>{{ property.title }}</p>
+                                <span class="mx-1">•</span>
+                                <p>{{ property.bedrooms }} BHK</p>
+                            </div>
+                            <div class="flex items-center text-gray-600 text-sm mb-3">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i>
+                                <p>{{ property.city }} - {{ property.zip_code }}</p>
+                            </div>
+                            
+                            <div class="pt-3 border-t border-gray-100 flex justify-between items-center">
+                                <span class="text-xs text-orange-600 font-medium">More details</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 text-orange-600 transform transition-transform duration-300 group-hover:translate-x-1"></i>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+    <!-- Under Construction Properties -->
+    <section class="py-12 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800" style="font-family: 'Montserrat', sans-serif;">Under Construction</h2>
+                    <p class="text-gray-600 text-sm mt-1">Investment opportunities with great potential</p>
+                </div>
+                <a href="/special_filter/1" class="text-orange-600 hover:text-orange-800 flex items-center text-sm font-medium">
+                    View All
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="flex space-x-4 overflow-x-auto custom-scrollbar pb-4">
                 {% for property in uc %}
-                <a href="prop_view/{{property.id}}">
-                    <div class="property w-[180px] h-[310px] lg:w-[250px] lg:h-[428px] flex flex-col relative group">
-                        <div class="display h-full w-full overflow-hidden rounded-2xl">
-                            <img src="/media/{{property.main_img}}" alt="Beautiful Family Home"
-                                class="object-cover object-center w-full h-full group-hover:scale-110 duration-500">
-                        </div>
-                        <div
-                            class="description h-[43%] lg:h-[37%] lg:mt-[111%] w-full space-y-2 px-2 py-1 mt-[100%] absolute backdrop-blur-lg rounded-2xl lg:space-y-4 text-sm">
-                            <h2
-                                class="font-semibold !text-xl price">
-                                ₹ {{ property.price2 }}</h2>
-                            <div class="flex gap-x-5 h-6 overflow-hidden text-white">
-                                <p> {{ property.title }}</p>
-                                <p>|</p>
-                                <p>{{ property.bedrooms }}BHK</p>
-                            </div>
-                            <p class="text-white"> {{ property.city }}- {{property.zip_code }}</p>
-                            <div
-                                class="flex justify-between items-center rounded-full border border-black px-2 -mx-1">
-                                <span class="text-xs">
-                                    More details
-                                </span>
-                                <span class="group-hover:rotate-[360deg] duration-500">
-                                    <img src="/media/icons/arrow.png" alt="" class="h-6">
-                                </span>
-                            </div>
-
+                <a href="prop_view/{{property.id}}" class="property-card flex-shrink-0 bg-white rounded-lg overflow-hidden shadow-md w-72 sm:w-[280px] lg:w-[300px]">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="/media/{{property.main_img}}" alt="{{ property.title }}" class="property-image w-full h-full object-cover">
+                        <div class="absolute top-0 right-0 bg-amber-600 text-white text-xs font-medium px-2 py-1 m-2 rounded flex items-center">
+                            <i data-lucide="hammer" class="w-3.5 h-3.5 mr-1"></i>
+                            Under Construction
                         </div>
                     </div>
-                </a>
-
-                {% endfor %}
-            </div>
-
-            
-            <a href="/special_filter/3">
-                <h2 class=" text-lg ml-2 text-white my-5">Cost efficient ></h2>
-            </a>
-            <div class="flex space-x-2 overflow-x-scroll lg:space-x-4 pb-5 lg:pb-10 " style="font-family: Montserrat;">
-                {% for property in ce %}
-                <a href="prop_view/{{property.id}}">
-                    <div class="property w-[180px] h-[310px] lg:w-[250px] lg:h-[428px] flex flex-col relative group">
-                        <div class="display h-full w-full overflow-hidden rounded-2xl">
-                            <img src="/media/{{property.main_img}}" alt="Beautiful Family Home"
-                                class="object-cover object-center w-full h-full group-hover:scale-110 duration-500">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">₹ {{ property.price2 }}</h3>
+                        <div class="flex items-center text-gray-700 text-sm mb-1">
+                            <p>{{ property.title }}</p>
+                            <span class="mx-1">•</span>
+                            <p>{{ property.bedrooms }} BHK</p>
                         </div>
-                        <div
-                            class="description h-[43%] lg:h-[37%] lg:mt-[111%] w-full space-y-2 px-2 py-1 mt-[100%] absolute backdrop-blur-lg rounded-2xl lg:space-y-4 text-sm">
-                            <h2
-                                class="font-semibold !text-xl price">
-                                ₹ {{ property.price2 }}</h2>
-                            <div class="flex gap-x-5 h-6 overflow-hidden text-white">
-                                <p> {{ property.title }}</p>
-                                <p>|</p>
-                                <p>{{ property.bedrooms }}BHK</p>
-                            </div>
-                            <p class="text-white"> {{ property.city }}- {{property.zip_code }}</p>
-                            <div
-                                class="flex justify-between items-center rounded-full border border-black px-2 -mx-1">
-                                <span class="text-xs">
-                                    More details
-                                </span>
-                                <span class="group-hover:rotate-[360deg] duration-500">
-                                    <img src="/media/icons/arrow.png" alt="" class="h-6">
-                                </span>
-                            </div>
-
+                        <div class="flex items-center text-gray-600 text-sm mb-3">
+                            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i>
+                            <p>{{ property.city }} - {{ property.zip_code }}</p>
+                        </div>
+                        
+                        <div class="pt-3 border-t border-gray-100 flex justify-between items-center">
+                            <span class="text-xs text-orange-600 font-medium">More details</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-orange-600 transform transition-transform duration-300 group-hover:translate-x-1"></i>
                         </div>
                     </div>
                 </a>
                 {% endfor %}
             </div>
         </div>
+    </section>
 
-        <footer class="bg-gray-900 text-sm bg-opacity-70 text-white p-8 mt-12 font-sans">
-            <div class="container mx-auto flex flex-col md:flex-row justify-between">
+    <!-- Cost Efficient Properties -->
+    <section class="py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800" style="font-family: 'Montserrat', sans-serif;">Cost Efficient</h2>
+                    <p class="text-gray-600 text-sm mt-1">Budget-friendly options for smart buyers</p>
+                </div>
+                <a href="/special_filter/3" class="text-orange-600 hover:text-orange-800 flex items-center text-sm font-medium">
+                    View All
+                    <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="flex space-x-4 overflow-x-auto custom-scrollbar pb-4">
+                {% for property in ce %}
+                <a href="prop_view/{{property.id}}" class="property-card flex-shrink-0 bg-white rounded-lg overflow-hidden shadow-md w-72 sm:w-[280px] lg:w-[300px]">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="/media/{{property.main_img}}" alt="{{ property.title }}" class="property-image w-full h-full object-cover">
+                        <div class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-medium px-2 py-1 m-2 rounded flex items-center">
+                            <i data-lucide="tag" class="w-3.5 h-3.5 mr-1"></i>
+                            Cost Efficient
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">₹ {{ property.price2 }}</h3>
+                        <div class="flex items-center text-gray-700 text-sm mb-1">
+                            <p>{{ property.title }}</p>
+                            <span class="mx-1">•</span>
+                            <p>{{ property.bedrooms }} BHK</p>
+                        </div>
+                        <div class="flex items-center text-gray-600 text-sm mb-3">
+                            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i>
+                            <p>{{ property.city }} - {{ property.zip_code }}</p>
+                        </div>
+                        
+                        <div class="pt-3 border-t border-gray-100 flex justify-between items-center">
+                            <span class="text-xs text-orange-600 font-medium">More details</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-orange-600 transform transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-orange-600 to-orange-800">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-3xl font-bold text-white mb-4" style="font-family: 'Montserrat', sans-serif;">Ready to Find Your Dream Home?</h2>
+                <p class="text-orange-100 mb-8" style="font-family: 'Inter', sans-serif;">
+                    Let our experts help you navigate the real estate market to find the perfect property for your needs
+                </p>
+                <a href="/contact_agent" class="inline-flex items-center px-6 py-3 bg-white text-orange-600 font-medium rounded-lg hover:bg-orange-50 transition duration-300" style="font-family: 'Cinzel', serif;">
+                    <i data-lucide="user" class="w-4 h-4 mr-2"></i>
+                    Contact an Agent
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 <!-- Company Info -->
-                <div class="mb-4 md:mb-0">
-                    <h2 class="text-lg font-bold">NCPR Homes</h2>
-                    <p class="mt-2">Your trusted partner in real estate.</p>
-                    <p class="mt-2">© 2024 NCPR Homes. All rights reserved.</p>
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="/media/icons/image1.png" alt="NCPR Homes" class="h-8 mr-2">
+                        <h3 class="text-lg font-bold" style="font-family: 'Cinzel', serif;">NCPR Homes</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4 text-sm">Your trusted partner in real estate, helping you find the perfect property since 2023.</p>
+                    <p class="text-gray-400 text-sm">© 2024 NCPR Homes. All rights reserved.</p>
                 </div>
 
                 <!-- Quick Links -->
-                <div class="mb-4 md:mb-0">
-                    <h2 class="text-lg font-bold">Quick Links</h2>
-                    <ul class="mt-2 space-y-2">
-                        <li><a href="/" class="hover:underline">Home</a></li>
-                        <li><a href="/about" class="hover:underline">About Us</a></li>
-                        <li><a href="/services" class="hover:underline">Services</a></li>
-                        <li><a href="/contact_agent" class="hover:underline">Contact</a></li>
+                <div>
+                    <h3 class="text-lg font-bold mb-4" style="font-family: 'Cinzel', serif;">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="/" class="text-gray-400 hover:text-white transition flex items-center">
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 mr-2"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/about" class="text-gray-400 hover:text-white transition flex items-center">
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 mr-2"></i>
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/services" class="text-gray-400 hover:text-white transition flex items-center">
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 mr-2"></i>
+                                Services
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/contact_agent" class="text-gray-400 hover:text-white transition flex items-center">
+                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 mr-2"></i>
+                                Contact
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
-                <!-- Social Media Links -->
-                <div class="mb-4 md:mb-0">
-                    <h2 class="text-lg font-bold">Follow Us</h2>
-                    <div class="social-media flex flex-col lg:justify-center lg:items-center space-y-1 mt-2">
-                        <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/" target="_blank">
-                            <img src="/media/icons/facebook.png" alt="" class=" h-6 lg:h-8">
-                        </a>
-                        <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA" target="_blank">
-                            <img src="/media/icons/youtube.png" alt="" class=" h-7 lg:h-9   ">
-                        </a>
-                        <a href="https://www.linkedin.com/company/ncpr-homes/" target="_blank">
-                            <img src="/media/icons/linkedin.png" alt="" class=" h-7 lg:h-8">
-                    </div>
-    
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4" style="font-family: 'Cinzel', serif;">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i data-lucide="phone" class="w-5 h-5 mr-3 text-gray-400 mt-0.5"></i>
+                            <span class="text-gray-400">+91 070456-26807</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="mail" class="w-5 h-5 mr-3 text-gray-400 mt-0.5"></i>
+                            <span class="text-gray-400">ncpr.23realestate@gmail.com</span>
+                        </li>
+                        <li>
+                            <h4 class="text-sm font-semibold mb-2">Follow Us</h4>
+                            <div class="flex space-x-3">
+                                <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/" target="_blank" class="w-9 h-9 bg-gray-800 hover:bg-orange-600 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="facebook" class="w-4 h-4"></i>
+                                </a>
+                                <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA" target="_blank" class="w-9 h-9 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="youtube" class="w-4 h-4"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/company/ncpr-homes/" target="_blank" class="w-9 h-9 bg-gray-800 hover:bg-orange-800 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-        <script defer>
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            
+            // Message bar functionality
+            var messageBar = document.getElementById('message-bar');
+            var progressBar = document.getElementById('progress-bar');
 
-            //hamburger code
-            document.addEventListener("DOMContentLoaded", function () {
-                const hamburger = document.getElementById("hamburger");
-                const hamburgerImg = document.getElementById("hamburger-img");
-                const hamburgerSvg = document.getElementById("hamburger-svg");
-                const svgAnimation = document.getElementById("svg-animation");
-                const menu = document.getElementById("menu");
-              
-                let menuOpen = false; // Track menu state
-              
-                hamburger.addEventListener("click", function () {
-                  if (!menuOpen) {
+            if (messageBar && progressBar) {
+                // Set initial width of the progress bar to 100%
+                progressBar.style.width = '100%';
+
+                // Duration for how long the message bar will be visible (5 seconds)
+                var duration = 5000;
+
+                // Use CSS transitions to animate the progress bar in reverse
+                progressBar.style.transition = `width ${duration}ms linear`;
+                setTimeout(() => {
+                    progressBar.style.width = '0%';
+                }, 0);
+
+                // Hide the message bar after the duration
+                setTimeout(function () {
+                    messageBar.style.display = 'none';
+                }, duration);
+            }
+
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            
+            // Apply proper styling on load
+            if (window.innerWidth < 768) { // Mobile
+                // Always keep black text on mobile
+                document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                    link.classList.remove('text-white', 'text-orange-600');
+                    link.classList.add('text-gray-900');
+                });
+                document.querySelectorAll('#navbar #hamburger svg').forEach(icon => {
+                    icon.setAttribute('stroke', '#111827'); // gray-900
+                });
+            } else { // Desktop
+                // Initial state depends on scroll position
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white', 'shadow-md');
+                    navbar.classList.remove('bg-transparent');
+                    document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                        link.classList.remove('text-white', 'text-orange-600');
+                        link.classList.add('text-gray-900');
+                    });
+                } else {
+                    navbar.classList.add('bg-transparent');
+                    navbar.classList.remove('bg-white', 'shadow-md');
+                    document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                        link.classList.remove('text-gray-900', 'text-orange-600');
+                        link.classList.add('text-white');
+                    });
+                }
+            }
+            
+            // Scroll event handler
+            window.addEventListener('scroll', function() {
+                if (window.innerWidth >= 768) { // Only apply transition effect on desktop
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('bg-white', 'shadow-md');
+                        navbar.classList.remove('bg-transparent');
+                        // Change nav links to black on scroll (sticky mode)
+                        document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                            link.classList.remove('text-white', 'text-orange-600');
+                            link.classList.add('text-gray-900');
+                        });
+                    } else {
+                        navbar.classList.remove('bg-white', 'shadow-md');
+                        navbar.classList.add('bg-transparent');
+                        // Change nav links to white when at top
+                        document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                            link.classList.remove('text-gray-900', 'text-orange-600');
+                            link.classList.add('text-white');
+                        });
+                    }
+                }
+            });
+            
+            // Handle resize events (switching between mobile and desktop)
+            window.addEventListener('resize', function() {
+                if (window.innerWidth < 768) { // Mobile
+                    navbar.classList.add('bg-white');
+                    navbar.classList.remove('bg-transparent');
+                    document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                        link.classList.remove('text-white', 'text-orange-600');
+                        link.classList.add('text-gray-900');
+                    });
+                    document.querySelectorAll('#navbar #hamburger svg').forEach(icon => {
+                        icon.setAttribute('stroke', '#111827'); // gray-900
+                    });
+                } else { // Desktop
+                    // Apply proper styling based on scroll position
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('bg-white', 'shadow-md');
+                        navbar.classList.remove('bg-transparent');
+                        document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                            link.classList.remove('text-white', 'text-orange-600');
+                            link.classList.add('text-gray-900');
+                        });
+                    } else {
+                        navbar.classList.remove('bg-white', 'shadow-md');
+                        navbar.classList.add('bg-transparent');
+                        document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                            link.classList.remove('text-gray-900', 'text-orange-600');
+                            link.classList.add('text-white');
+                        });
+                    }
+                }
+            });
+        });
+
+        // Function to manually hide the message bar when close button is clicked
+        function hideMessageBar() {
+            var messageBar = document.getElementById('message-bar');
+            if (messageBar) {
+                messageBar.style.display = 'none';
+            }
+        }
+
+        // Mobile menu functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const hamburger = document.getElementById("hamburger");
+            const hamburgerImg = document.getElementById("hamburger-img");
+            const hamburgerClose = document.getElementById("hamburger-close");
+            const menu = document.getElementById("menu");
+          
+            let menuOpen = false; // Track menu state
+          
+            hamburger.addEventListener("click", function () {
+                if (!menuOpen) {
                     // Open menu with animation
                     menu.classList.remove("hidden");
-                    menu.classList.add("fade-in", "backdrop-blur-lg");
-              
-                    // Switch to SVG and play open animation
+                    menu.classList.add("scale-100");
+                    menu.classList.remove("scale-90");
+          
+                    // Switch icons
                     hamburgerImg.classList.add("hidden");
-                    hamburgerSvg.classList.remove("hidden");
-                    svgAnimation.setAttribute(
-                      "values",
-                      "M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19; M5 5L12 12L19 5M12 12H12M5 19L12 12L19 19"
-                    );
-                    svgAnimation.beginElement();
-                  } else {
-                    // Close menu with reverse animation
-                    menu.classList.add("fade-out");
-                    menu.classList.remove("fade-in");
+                    hamburgerClose.classList.remove("hidden");
+                } else {
+                    // Close menu with animation
+                    menu.classList.add("scale-90");
+                    menu.classList.remove("scale-100");
+                    
                     setTimeout(() => {
                       menu.classList.add("hidden");
-                      menu.classList.remove("fade-out", "backdrop-blur-lg");
-                    }, 300); // Match the fade-out animation duration
-              
-                    // Switch to SVG and play reverse animation
-                    svgAnimation.setAttribute(
-                      "values",
-                      "M5 5L12 12L19 5M12 12H12M5 19L12 12L19 19; M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19"
-                    );
-                    svgAnimation.beginElement();
-                  }
-              
-                  // Toggle menu state
-                  menuOpen = !menuOpen;
-                });
-              });
-              
-
-            //animated text code 
-
-            const texts = ["Finding Homes?", "Feeling confused?", "Try NCPR!"];
-            let textIndex = 0;
-            let charIndex = 0;
-            const typingSpeed = 150;
-            const erasingSpeed = 75;
-            const delayBetweenTexts = 2000;
-            const typingContent = document.getElementById("typing-content");
-
-            // Calculate the longest text length
-            const longestTextLength = Math.max(...texts.map(text => text.length));
-
-            // Set the min-width of the typing-content span to match the longest text
-            typingContent.style.minWidth = `${longestTextLength}ch`;
-
-            function type() {
-                if (charIndex < texts[textIndex].length) {
-                    typingContent.textContent += texts[textIndex].charAt(charIndex);
-                    charIndex++;
-                    setTimeout(type, typingSpeed);
-                } else {
-                    setTimeout(erase, delayBetweenTexts);
+                    }, 300);
+          
+                    // Switch icons
+                    hamburgerClose.classList.add("hidden");
+                    hamburgerImg.classList.remove("hidden");
                 }
-            }
-
-            function erase() {
-                if (charIndex > 0) {
-                    typingContent.textContent = texts[textIndex].substring(0, charIndex - 1);
-                    charIndex--;
-                    setTimeout(erase, erasingSpeed);
-                } else {
-                    textIndex = (textIndex + 1) % texts.length; // Cycle through the texts array
-                    setTimeout(type, typingSpeed + 1100);
-                }
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                setTimeout(type, delayBetweenTexts);
+          
+                // Toggle menu state
+                menuOpen = !menuOpen;
             });
+        });
 
-        </script>
+        // Typing animation
+        const texts = ["Perfect Home", "Dream Property", "True Haven"];
+        let textIndex = 0;
+        let charIndex = 0;
+        const typingSpeed = 50;
+        const erasingSpeed = 50;
+        const delayBetweenTexts = 800;
+        const typingContent = document.getElementById("typing-content");
+
+        function type() {
+            if (charIndex < texts[textIndex].length) {
+                typingContent.textContent += texts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingSpeed);
+            } else {
+                setTimeout(erase, delayBetweenTexts);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typingContent.textContent = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingSpeed);
+            } else {
+                textIndex = (textIndex + 1) % texts.length; // Cycle through the texts array
+                setTimeout(type, typingSpeed + 1100);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(type, 1000); // Start typing animation after 1 second
+        });
+    </script>
 </body>
 
 </html>
