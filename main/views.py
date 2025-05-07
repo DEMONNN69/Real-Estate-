@@ -11,16 +11,6 @@ from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 import json
 import pyotp
-def verify_otp(request):
-    id_token = request.POST.get('id_token')
-
-    try:
-        decoded_token = auth.verify_id_token(id_token)
-        uid = decoded_token['uid']
-        # Create session or perform other actions
-        return JsonResponse({"status": "success", "uid": uid})
-    except Exception as e:
-        return JsonResponse({"status": "error", "message": str(e)})
 
 def home(request):
     list_proj=Property.objects.all()[:8]

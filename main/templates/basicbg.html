@@ -6,234 +6,398 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Home UI</title>
-    <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}"> -->
+    <title>NCPR-HOMES | Your Trusted Real Estate Partner</title>
     {% tailwind_css %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
     {% block head %}
     {% endblock%}
-
-</head>
-
-<body class="bg-black">
-   <style>/* Custom styles for fade-in and fade-out animations */
-
-
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
-
-    .fade-in {
-        animation: fadeIn 0.3s forwards;
-    }
-
-    .fade-out {
-        animation: fadeOut 0.3s forwards;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    @keyframes fadeOut {
-        from {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        to {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-    }
-
-
-    html {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #1e1e1e; /* Thumb color #888, track color #1e1e1e */
-  }
-  
-  html:hover {
-    scrollbar-color: #555 #1e1e1e; /* Change thumb color on hover */
-  }
-</style>
-    
-    <script src="{%static 'js/filter.js'%}"></script>
-
-
-    <div class="bg-image bg-[url('/media/icons/bgimage.jpg')] h-[20rem] lg:h-[35rem] bg-no-repeat bg-cover" >
-
-
-        <div class="navbar-lg lg:hidden hidden flex flex-col bg-transparent text-white font-medium shadow-lg rounded-lg p-4 absolute mt-12 lg:m-0 lg:w-fit w-full h-full z-10 space-y-4 uppercase"
-            id="menu" style="font-family: Cinzel;">
-            <a href="/ "
-                class="border-b p-3 lg:border-none lg:text-lg  hover:backdrop-blur-xl ">Home</a>
-                <a href="/contact_agent"
-                class="border-b p-3 lg:border-none  lg:text-lg  hover:backdrop-blur-xl ">Contact</a>
-            
-            <a href="/services"
-                class="border-b p-3 lg:border-none lg:text-lg  hover:backdrop-blur-xl ">Services</a>
-                <a href="/about"
-                class="border-b p-3 lg:border-none lg:text-lg  hover:backdrop-blur-xl ">About</a>   
-            
-        </div>
-
-        <div
-            class="navbar flex justify-between bg-transparent p-2 w-screen items-center top-0 overflow-hidden">
-            <div
-                class="navbar-lg hidden flex flex-col lg:bg-transparent lg:shadow-none rounded-lg lg:static lg:ml-2 lg:w-fit lg:space-x-14 lg:block lg:text-white lg:font-light overflow-hidden uppercase" style="font-family: Cinzel;">
-                <a href=" /"
-                    class=" lg:border-none rounded-xl  hover:text-black duration-300">Home</a>
-                    <a href="/contact_agent"
-                    class=" lg:border-none  rounded-xl  hover:text-black duration-300">Contact</a>
-                
-                <a href="/services"
-                    class=" lg:border-none rounded-xl  hover:text-black duration-300">Services</a>
-                    <a href="/about"
-                    class="lg:border-none rounded-xl   hover:text-black duration-300">About</a>
-                
-            </div>
-            <div class="hamburger lg:hidden flex items-center" id="hamburger">
-                <!-- Default Image -->
-                <svg id="hamburger-img" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19"></path>
-                  </svg>
-                  
-                  
-                <!-- SVG (hidden initially) -->
-                <svg xmlns="http://www.w3.org/2000/svg" id="hamburger-svg" class="h-8 hidden" viewBox="0 0 24 24">
-                  <path
-                    fill="none"
-                    stroke="#fff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19"
-                    id="hamburger-path"
-                  >
-                    <animate
-                      id="svg-animation"
-                      fill="freeze"
-                      attributeName="d"
-                      dur="0.4s"
-                      values="M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19;
-                              M5 5L12 12L19 5M12 12H12M5 19L12 12L19 19"
-                      begin="indefinite"
-                    />
-                  </path>
-                </svg>
-              </div>
-            <div class="company-logo mr-[4vw] lg:ml-[8vw]  lg:order-2 md:m-0">
-                <a href="/ "><img src="/media/icons/image1.png" alt="harsh" class="h-8 lg:h-12"></a>
-            </div>
-            <div class="invisible lg:w-1/3 lg:order-3 ">
-            </div>
-        </div>
-
         
-        {% block body %}
-        {% endblock %}  
+        body {
+            font-family: 'Inter', sans-serif;
+        }
 
-        <footer class="bg-gray-900 text-sm bg-opacity-70 text-white p-8 mt-12 font-sans">
-            <div class="container mx-auto flex flex-col md:flex-row justify-between">
-                <!-- Company Info -->
-                <div class="mb-4 md:mb-0">
-                    <h2 class="text-lg font-bold">NCPR Homes</h2>
-                    <p class="mt-2">Your trusted partner in real estate.</p>
-                    <p class="mt-2">© 2024 NCPR Homes. All rights reserved.</p>
+        /* Typography styles */
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .nav-link, .section-title {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+        }
+
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(113, 113, 122, 0.3);
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(113, 113, 122, 0.5);
+        }
+        
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+        }
+
+        /* Scrollbar styling for Chrome, Safari, and Edge */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 10px;
+            border: 2px solid #1e1e1e;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+        
+        /* Scrollbar styling for Firefox */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #888 #1e1e1e;
+        }
+        
+        html:hover {
+            scrollbar-color: #555 #1e1e1e;
+        }
+    </style>
+    <script src="{%static 'js/filter.js'%}"></script>
+</head>
+
+<body class="bg-white text-gray-900">
+    <!-- Header Section with Hero -->
+    <header class="relative">
+        <!-- Navigation Bar - Fixed with better mobile styling -->
+        <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-sm" id="navbar">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex items-center justify-between">
+                    <!-- Logo -->
+                    <a href="/" class="flex items-center space-x-2">
+                        <img src="/media/icons/image1.png" alt="NCPR Homes" class="h-8 md:h-10">
+                    </a>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="/" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">HOME</a>
+                        <a href="/contact_agent" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">CONTACT</a>
+                        <a href="/services" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">SERVICES</a>
+                        <a href="/about" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">ABOUT</a>
+                    </div>
+
+                    <!-- Mobile Navigation Toggle -->
+                    <button class="md:hidden text-gray-900 focus:outline-none" id="hamburger">
+                        <i data-lucide="menu" id="hamburger-img" class="w-6 h-6"></i>
+                        <i data-lucide="x" id="hamburger-close" class="w-6 h-6 hidden"></i>
+                    </button>
                 </div>
+            </div>
 
+            <!-- Mobile Navigation Menu (hidden by default) -->
+            <div class="mobile-menu hidden md:hidden bg-white shadow-lg rounded-b-lg absolute w-full z-50 transform transition-transform duration-300 origin-top" id="menu">
+                <div class="container mx-auto px-4 py-3 space-y-4" style="font-family: 'Cinzel', serif;">
+                    <a href="/" class="block py-2 text-gray-800 hover:text-orange-600 border-b border-gray-100">HOME</a>
+                    <a href="/contact_agent" class="block py-2 text-gray-800 hover:text-orange-600 border-b border-gray-100">CONTACT</a>
+                    <a href="/services" class="block py-2 text-gray-800 hover:text-orange-600 border-b border-gray-100">SERVICES</a>
+                    <a href="/about" class="block py-2 text-gray-800 hover:text-orange-600">ABOUT</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section with Image - For information pages -->
+        <div class="bg-cover bg-bottom min-h-[40vh] md:min-h-[50vh] h-auto pb-12 relative flex items-center pt-24 md:pt-16" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/media/photos/bgimage.jpg');">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <!-- Page title will be inserted by extending templates -->
+                    {% block hero_content %}
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-4 leading-tight" style="font-family: 'Montserrat', sans-serif;">
+                        NCPR Homes
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-100 mb-8 font-light" style="font-family: 'Inter', sans-serif;">
+                        Your trusted partner in real estate
+                    </p>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="min-h-screen">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <!-- Redesigned Footer with Light Background -->
+    <footer class="bg-gray-50 text-gray-800 py-10 md:py-14 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <!-- Footer Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Company Information -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center mb-5">
+                        <img src="/media/icons/image1.png" alt="NCPR Homes" class="h-10 mr-3">
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                        Your trusted partner in real estate, helping you find the perfect property that meets your needs and exceeds your expectations since 2023.
+                    </p>
+                    <p class="text-gray-500 text-sm mt-6">© 2024 NCPR Homes. All rights reserved.</p>
+                </div>
+                
                 <!-- Quick Links -->
-                <div class="mb-4 md:mb-0">
-                    <h2 class="text-lg font-bold">Quick Links</h2>
-                    <ul class="mt-2 space-y-2">
-                        <li><a href="/" class="hover:underline">Home</a></li>
-                        <li><a href="/about" class="hover:underline">About Us</a></li>
-                        <li><a href="/services" class="hover:underline">Services</a></li>
-                        <li><a href="/contact_agent" class="hover:underline">Contact</a></li>
+                <div class="md:col-span-1">
+                    <h3 class="text-lg font-bold mb-5 text-gray-900" style="font-family: 'Cinzel', serif;">Quick Links</h3>
+                    <ul class="grid grid-cols-2 md:grid-cols-1 gap-3">
+                        <li>
+                            <a href="/" class="text-gray-600 hover:text-orange-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/about" class="text-gray-600 hover:text-orange-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                <span>About Us</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/services" class="text-gray-600 hover:text-orange-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                <span>Services</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/contact_agent" class="text-gray-600 hover:text-orange-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                <span>Contact</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
-                <!-- Social Media Links -->
-                <div class="mb-4 md:mb-0">
-                    <h2 class="text-lg font-bold">Follow Us</h2>
-                    <div class="social-media flex flex-col lg:justify-center lg:items-center space-y-1 mt-2">
-                        <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/" target="_blank">
-                            <img src="/media/icons/facebook.png" alt="" class=" h-6 lg:h-8">
-                        </a>
-                        <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA" target="_blank">
-                            <img src="/media/icons/youtube.png" alt="" class=" h-7 lg:h-9   ">
-                        </a>
-                        <a href="https://www.linkedin.com/company/ncpr-homes/" target="_blank">
-                            <img src="/media/icons/linkedin.png" alt="" class=" h-7 lg:h-8">
-                    </div>
-    
+                <!-- Contact Information -->
+                <div class="md:col-span-1">
+                    <h3 class="text-lg font-bold mb-5 text-gray-900" style="font-family: 'Cinzel', serif;">Contact Us</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i data-lucide="phone" class="w-5 h-5 mr-3 text-orange-500 flex-shrink-0"></i>
+                            <span class="text-gray-600">+91  84528-62301</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="mail" class="w-5 h-5 mr-3 text-orange-500 flex-shrink-0"></i>
+                            <span class="text-gray-600">contact@ncprhomes.com</span>
+                        </li>
+                        <li class="mt-6">
+                            <h4 class="text-gray-800 text-sm font-medium mb-3" style="font-family: 'Cinzel', serif;">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/" target="_blank" class="w-10 h-10 bg-gray-200 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="facebook" class="w-5 h-5 text-gray-700 hover:text-white"></i>
+                                </a>
+                                <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA" target="_blank" class="w-10 h-10 bg-gray-200 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="youtube" class="w-5 h-5 text-gray-700 hover:text-white"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/company/ncpr-homes/" target="_blank" class="w-10 h-10 bg-gray-200 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="linkedin" class="w-5 h-5 text-gray-700 hover:text-white"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </footer>
+            
+            <!-- Footer Bottom Separator and Credits -->
+            <div class="mt-10 pt-6 border-t border-gray-200 text-center md:text-left">
+                <p class="text-gray-500 text-xs">
+                    Designed with <i data-lucide="heart" class="w-3 h-3 inline-block text-orange-500"></i> by NCPR Homes Development Team.
+                </p>
+            </div>
+        </div>
+    </footer>
 
-        
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            
+            // Apply proper styling on load
+            if (window.innerWidth < 768) { // Mobile
+                // Always keep black text on mobile
+                document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                    link.classList.remove('text-white', 'text-orange-600');
+                    link.classList.add('text-gray-900');
+                });
+            } else { // Desktop
+                // Initial state depends on scroll position
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white', 'shadow-md');
+                    navbar.classList.remove('bg-transparent');
+                    document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                        link.classList.remove('text-white', 'text-orange-600');
+                        link.classList.add('text-gray-900');
+                    });
+                } else {
+                    navbar.classList.add('bg-transparent');
+                    navbar.classList.remove('bg-white', 'shadow-md');
+                    document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                        link.classList.remove('text-gray-900', 'text-orange-600');
+                        link.classList.add('text-white');
+                    });
+                }
+            }
+            
+            // Scroll event handler
+            window.addEventListener('scroll', function() {
+                if (window.innerWidth >= 768) { // Only apply transition effect on desktop
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('bg-white', 'shadow-md');
+                        navbar.classList.remove('bg-transparent');
+                        // Change nav links to black on scroll (sticky mode)
+                        document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                            link.classList.remove('text-white', 'text-orange-600');
+                            link.classList.add('text-gray-900');
+                        });
+                    } else {
+                        navbar.classList.remove('bg-white', 'shadow-md');
+                        navbar.classList.add('bg-transparent');
+                        // Change nav links to white when at top
+                        document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                            link.classList.remove('text-gray-900', 'text-orange-600');
+                            link.classList.add('text-white');
+                        });
+                    }
+                }
+            });
+            
+            // Handle resize events (switching between mobile and desktop)
+            window.addEventListener('resize', function() {
+                if (window.innerWidth < 768) { // Mobile
+                    navbar.classList.add('bg-white');
+                    navbar.classList.remove('bg-transparent');
+                    document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                        link.classList.remove('text-white', 'text-orange-600');
+                        link.classList.add('text-gray-900');
+                    });
+                } else { // Desktop
+                    // Apply proper styling based on scroll position
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('bg-white', 'shadow-md');
+                        navbar.classList.remove('bg-transparent');
+                        document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                            link.classList.remove('text-white', 'text-orange-600');
+                            link.classList.add('text-gray-900');
+                        });
+                    } else {
+                        navbar.classList.remove('bg-white', 'shadow-md');
+                        navbar.classList.add('bg-transparent');
+                        document.querySelectorAll('#navbar a:not([class*="bg-"])').forEach(link => {
+                            link.classList.remove('text-gray-900', 'text-orange-600');
+                            link.classList.add('text-white');
+                        });
+                    }
+                }
+            });
+        });
 
-
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const hamburger = document.getElementById("hamburger");
-                const hamburgerImg = document.getElementById("hamburger-img");
-                const hamburgerSvg = document.getElementById("hamburger-svg");
-                const svgAnimation = document.getElementById("svg-animation");
-                const menu = document.getElementById("menu");
-              
-                let menuOpen = false; // Track menu state
-              
-                hamburger.addEventListener("click", function () {
-                  if (!menuOpen) {
+        // Mobile menu functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const hamburger = document.getElementById("hamburger");
+            const hamburgerImg = document.getElementById("hamburger-img");
+            const hamburgerClose = document.getElementById("hamburger-close");
+            const menu = document.getElementById("menu");
+          
+            let menuOpen = false; // Track menu state
+          
+            hamburger.addEventListener("click", function () {
+                if (!menuOpen) {
                     // Open menu with animation
                     menu.classList.remove("hidden");
-                    menu.classList.add("fade-in", "backdrop-blur-lg");
-              
-                    // Switch to SVG and play open animation
+                    menu.classList.add("scale-100");
+                    menu.classList.remove("scale-90");
+          
+                    // Switch icons
                     hamburgerImg.classList.add("hidden");
-                    hamburgerSvg.classList.remove("hidden");
-                    svgAnimation.setAttribute(
-                      "values",
-                      "M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19; M5 5L12 12L19 5M12 12H12M5 19L12 12L19 19"
-                    );
-                    svgAnimation.beginElement();
-                  } else {
-                    // Close menu with reverse animation
-                    menu.classList.add("fade-out");
-                    menu.classList.remove("fade-in");
+                    hamburgerClose.classList.remove("hidden");
+                } else {
+                    // Close menu with animation
+                    menu.classList.add("scale-90");
+                    menu.classList.remove("scale-100");
+                    
                     setTimeout(() => {
                       menu.classList.add("hidden");
-                      menu.classList.remove("fade-out", "backdrop-blur-lg");
-                    }, 300); // Match the fade-out animation duration
-              
-                    // Switch to SVG and play reverse animation
-                    svgAnimation.setAttribute(
-                      "values",
-                      "M5 5L12 12L19 5M12 12H12M5 19L12 12L19 19; M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19"
-                    );
-                    svgAnimation.beginElement();
-                  }
-              
-                  // Toggle menu state
-                  menuOpen = !menuOpen;
-                });
-              });
-              
-
-        </script>
+                    }, 300);
+          
+                    // Switch icons
+                    hamburgerClose.classList.add("hidden");
+                    hamburgerImg.classList.remove("hidden");
+                }
+          
+                // Toggle menu state
+                menuOpen = !menuOpen;
+            });
+        });
+    </script>
 </body>
 
 </html>

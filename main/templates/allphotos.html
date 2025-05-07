@@ -5,91 +5,240 @@
     {% load static tailwind_tags %}
     {% tailwind_css %}
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Typography styles */
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .image-card {
+            overflow: hidden;
+            position: relative;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .image-card img {
+            transition: transform 0.5s ease;
+        }
+        
+        .image-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-card:hover::after {
+            opacity: 1;
+        }
+        
+        /* Simple Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            max-width: 1000px;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .modal-image-container {
+            position: relative;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-thumbnails {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .modal-thumbnail {
+            width: 60px;
+            height: 45px;
+            margin: 0 5px;
+            opacity: 0.7;
+            cursor: pointer;
+            object-fit: cover;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        
+        .modal-thumbnail:hover,
+        .modal-thumbnail.active {
+            opacity: 1;
+            border: 2px solid #f97316;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1010;
+            transition: background-color 0.2s;
+        }
+        
+        .close:hover {
+            background-color: rgba(249, 115, 22, 0.7);
+        }
+        
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background-color 0.2s;
+        }
+        
+        .prev {
+            left: 15px;
+        }
+        
+        .next {
+            right: 15px;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(249, 115, 22, 0.7);
+        }
+        
+        /* For very small screens */
+        @media (max-width: 480px) {
+            .modal-thumbnails {
+                height: 40px;
+            }
+            
+            .modal-thumbnail {
+                width: 40px;
+                height: 30px;
+            }
+            
+            .nav-button {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .close {
+                width: 35px;
+                height: 35px;
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 
-<body class="bg-black font-sans uppercase text-center" style="font-family: Cinzel;">
+<body class="bg-white font-sans">
     <div class="property-gallery p-6 max-w-6xl mx-auto">
-        <h2 class="text-2xl font-bold mb-6 text-white">More Images</h2>
+        <h2 class="text-3xl font-bold mb-8 text-gray-900 tracking-wider" style="font-family: 'Montserrat', sans-serif;">Property Gallery</h2>
 
         <!-- Image Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-6" onclick="document.querySelector('.popup').style.display='block';">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 mb-10">
             {% for img in photos %}
-            <div class="relative">
+            <div class="image-card shadow-md cursor-pointer" onclick="openModal();currentSlide({{ forloop.counter0 }})">
                 <img src="/media/{{ img.image }}" alt="{{ img.description|default:'Property image' }}"
-                    class="w-full h-40 object-cover shadow-md cursor-pointer"
-                    data-index="{{ forloop.counter0 }}" >
+                    class="w-full h-48 object-cover">
             </div>
             {% empty %}
-            <p class="text-gray-500">No images available.</p>
+            <div class="col-span-full text-gray-600 p-10 border border-gray-200 rounded-lg bg-gray-50">
+                <svg class="w-12 h-12 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <p>No images available for this property.</p>
+            </div>
             {% endfor %}
         </div>
 
-
-        <div class="hidden lg:absolute popup top-20 bottom-20 lg:left-1/4 right-1/4">
-           
+        <!-- Simple Modal -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
             
-            <!-- Image Carousel -->
-            <div class="relative max-w-7xl  overflow-hidden hidden mb-6" id="carouselWrapper">
-                <div id="carousel" class="flex transition-transform duration-500">
+            <div class="modal-content">
+                <div class="modal-image-container">
+                    <button class="nav-button prev" onclick="plusSlides(-1)">&#10094;</button>
+                    
                     {% for img in photos %}
-                    <img src="/media/{{ img.image }}" alt="{{ img.description|default:'Property image' }}"
-                        class="w-full object-cover rounded-lg shadow-md flex-shrink-0">
-                    {% empty %}
-                    <p class="text-gray-500">No images available.</p>
+                    <img class="modal-image slides" src="/media/{{ img.image }}" alt="{{ img.description|default:'Property image' }}" style="display: none;">
+                    {% endfor %}
+                    
+                    <button class="nav-button next" onclick="plusSlides(1)">&#10095;</button>
+                </div>
+                
+                <div class="modal-thumbnails">
+                    {% for img in photos %}
+                    <img class="modal-thumbnail" src="/media/{{ img.image }}" onclick="currentSlide({{ forloop.counter0 }})" alt="Thumbnail">
                     {% endfor %}
                 </div>
-
-                <!-- Carousel Controls -->
-                <span
-                class="close absolute cursor-pointer top-0 right-0 w-10 text-4xl text-center font-light bg-white hover:text-white hover:bg-red-500 text-red-800"
-                onclick="document.querySelector('.popup').style.display='none';">&times;</span>
-                <button id="prevBtn"
-                    class="absolute top-1/2 left-2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600">
-                    &#9664;
-                </button>
-                <button id="nextBtn"
-                    class="absolute top-1/2 right-2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600">
-                    &#9654;
-                </button>
             </div>
         </div>
 
-        <!-- Mobile Section -->
-
-        
-        <div class="lg:hidden bg-black h-full popup absolute top-20 bottom-20 lg:left-1/4 right-1/4">
-           
-            
-            <!-- Image Carousel -->
-            <div class="relative max-w-7xl  overflow-hidden hidden mb-6" id="carouselWrapper">
-                <div id="carousel" class="flex transition-transform duration-500 bg-black">
-                    {% for img in photos %}
-                    <img src="/media/{{ img.image }}" alt="{{ img.description|default:'Property image' }}"
-                        class="w-full object-cover rounded-lg shadow-md flex-shrink-0">
-                    {% empty %}
-                    <p class="text-gray-500">No images available.</p>
-                    {% endfor %}
-                </div>
-
-                <!-- Carousel Controls -->
-                <span
-                class="close absolute cursor-pointer top-0 right-0 w-10 m-10 text-4xl text-center font-light bg-white hover:text-white hover:bg-red-500 text-red-800"
-                onclick="document.querySelector('.popup').style.display='none';">&times;</span>
-                <button id="prevBtn"
-                    class="absolute top-1/2 left-2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600">
-                    &#9664;
-                </button>
-                <button id="nextBtn"
-                    class="absolute top-1/2 right-2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600">
-                    &#9654;
-                </button>
-            </div>
-        </div>
-
-
-        <h2 class="text-2xl font-bold mb-6 text-white">property videos</h2>
+        <h2 class="text-2xl font-bold mb-6 text-gray-900" style="font-family: 'Montserrat', sans-serif;">Property Videos</h2>
 
         <!-- Video Section -->
         <div class="video-container mt-10">
@@ -99,52 +248,89 @@
                 allowfullscreen class="w-full h-64 rounded shadow-md">
             </iframe>
             {% else %}
-            <p class="text-gray-500">Video not available.</p>
+            <p class="text-gray-500 flex items-center justify-center py-10 bg-gray-50 rounded-lg border border-gray-200">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+                Video not available.
+            </p>
             {% endif %}
         </div>
     </div>
 
     <script>
-        // Carousel JavaScript
-        const carouselWrapper = document.getElementById('carouselWrapper');
-        const carousel = document.getElementById('carousel');
-        const thumbnails = document.querySelectorAll('.property-gallery .grid img');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
-        let currentIndex = 0;
-        const images = carousel.children;
-        const totalImages = images.length;
-
-        const updateCarousel = () => {
-            const offset = -currentIndex * 100;
-            carousel.style.transform = `translateX(${offset}%)`;
-        };
-
-        const startCarousel = (index) => {
-            currentIndex = index;
-            carouselWrapper.classList.remove('hidden');  // Show the carousel
-            updateCarousel();
-        };
-
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
-            updateCarousel();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
-            updateCarousel();
-        });
-
-        thumbnails.forEach((thumbnail, index) => {
-            thumbnail.addEventListener('click', () => {
-                startCarousel(index);
+        // Simple Modal Gallery
+        let slideIndex = 0;
+        
+        function openModal() {
+            document.getElementById("imageModal").style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+        
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+            document.body.style.overflow = "";
+        }
+        
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slides");
+            let thumbnails = document.getElementsByClassName("modal-thumbnail");
+            
+            if (slides.length === 0) return;
+            
+            if (n >= slides.length) {
+                slideIndex = 0;
+            }
+            if (n < 0) {
+                slideIndex = slides.length - 1;
+            }
+            
+            // Hide all slides
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                thumbnails[i].classList.remove("active");
+            }
+            
+            // Show current slide and highlight thumbnail
+            slides[slideIndex].style.display = "block";
+            thumbnails[slideIndex].classList.add("active");
+            thumbnails[slideIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
             });
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById("imageModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener("keydown", function(event) {
+            const modal = document.getElementById("imageModal");
+            if (modal.style.display === "block") {
+                if (event.key === "ArrowLeft") {
+                    plusSlides(-1);
+                } else if (event.key === "ArrowRight") {
+                    plusSlides(1);
+                } else if (event.key === "Escape") {
+                    closeModal();
+                }
+            }
         });
-
-        // Initialize the carousel to the first image
-        updateCarousel();
     </script>
 </body>
 

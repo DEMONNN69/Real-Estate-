@@ -1,4 +1,14 @@
 {%extends 'basicbg.html'%}
+
+{% block hero_content %}
+<h1 class="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-4 leading-tight" style="font-family: 'Montserrat', sans-serif;">
+    Our Story
+</h1>
+<p class="text-lg md:text-xl text-gray-100 mb-8 font-light" style="font-family: 'Inter', sans-serif;">
+    Redefining real estate excellence since our inception
+</p>
+{% endblock %}
+
 {%block body%}
 {% load static tailwind_tags %}
 {% tailwind_css %}
@@ -6,98 +16,666 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
-    .fade-in {
-        animation: fadeIn 0.8s ease-in;
+    /* Base animations */
+    .animated-element {
+        opacity: 0;
+        transform: translateY(30px);
     }
     
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    .animated-element.visible {
+        animation: float-in 0.8s forwards;
     }
     
-    .hover-lift {
-        transition: transform 0.2s ease;
+    @keyframes float-in {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
-    .hover-lift:hover {
-        transform: translateY(-2px);
+    /* Text reveal animation */
+    .text-reveal {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .text-reveal::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: #ed8936;
+        transform: translateX(0);
+    }
+    
+    .text-reveal.revealed::after {
+        animation: reveal 1.2s ease forwards;
+    }
+    
+    @keyframes reveal {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+    
+    /* Rotating cards */
+    .flip-card {
+        perspective: 1000px;
+        height: 280px;
+    }
+    
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+    
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s ease;
+    }
+    
+    .flip-card-front {
+        background: linear-gradient(145deg, #f0f9ff, #e0f2fe);
+        border: 1px solid rgba(191, 219, 254, 0.7);
+        color: #0369a1;
+    }
+    
+    .flip-card-back {
+        background: linear-gradient(145deg, #60a5fa, #3b82f6);
+        border: 1px solid rgba(147, 197, 253, 0.7);
+        color: white;
+        transform: rotateY(180deg);
+        box-shadow: 0 15px 25px -5px rgba(59, 130, 246, 0.2);
+    }
+    
+    /* Timeline styling */
+    .timeline-container {
+        position: relative;
+        padding-left: 2rem;
+    }
+    
+    .timeline-container::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(to bottom, transparent, #ed8936, transparent);
+    }
+    
+    .timeline-dot {
+        position: absolute;
+        left: -8px;
+        width: 18px;
+        height: 18px;
+        background: white;
+        border: 3px solid #ed8936;
+        border-radius: 50%;
+        transform: scale(0);
+    }
+    
+    .timeline-dot.animated {
+        animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-dot {
+        0% {
+            transform: scale(0.8);
+            box-shadow: 0 0 0 0 rgba(237, 137, 54, 0.7);
+        }
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(237, 137, 54, 0);
+        }
+        100% {
+            transform: scale(0.8);
+            box-shadow: 0 0 0 0 rgba(237, 137, 54, 0);
+        }
+    }
+    
+    /* Heartbeat animation for icons */
+    .icon-heartbeat {
+        animation: heartbeat 2s ease-in-out infinite;
+    }
+    
+    @keyframes heartbeat {
+        0% { transform: scale(1); }
+        14% { transform: scale(1.1); }
+        28% { transform: scale(1); }
+        42% { transform: scale(1.1); }
+        70% { transform: scale(1); }
+    }
+    
+    /* Value cards with interactive hover */
+    .value-card {
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .value-card:hover {
+        transform: translateY(-10px);
+    }
+    
+    .value-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: #ed8936;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s ease;
+    }
+    
+    .value-card:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+    
+    /* Growing underline for section titles */
+    .section-title {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .section-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 40px;
+        height: 4px;
+        background-color: #ed8936;
+        transition: width 0.4s ease;
+    }
+    
+    .section-title:hover::after {
+        width: 100%;
+    }
+    
+    /* Floating animation for testimonial clouds */
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+    
+    @keyframes floating {
+        0% { transform: translate(0, 0px); }
+        50% { transform: translate(0, 15px); }
+        100% { transform: translate(0, 0px); }
+    }
+    
+    /* Carousel */
+    .carousel-container {
+        scroll-behavior: smooth;
+    }
+    
+    /* Stats counter animation */
+    .counter-value {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+    
+    .counter-value.animate {
+        transform: scale(1.2);
     }
 </style>
 
-<div class="min-h-screen p-4 md:p-16 text-white">
-    <!-- Header Section -->
-    <div class="fade-in max-w-6xl mx-auto">
-        <h1 class="text-4xl md:text-6xl font-light text-center mb-4" style="font-family: Cinzel;">
-            About <span class="text-blue-400">Us</span>
-        </h1>
-        <div class="w-24 h-1 bg-blue-400 mx-auto mb-12"></div>
-    </div>
-
-    <!-- Content Section -->
-    <div class="max-w-4xl mx-auto rounded-2xl backdrop-blur-sm bg-black/30 p-8 md:p-12 font-light space-y-8" style="font-family: Montserrat">
-        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed">
-            NCPR Homes was established with a clear vision to revolutionize the real estate industry by offering unparalleled expertise and personalized service. Our mission is to guide clients through the complexities of real estate transactions, whether for investment or personal use, ensuring they make informed decisions every step of the way.
-        </p>
-
-        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed">
-            At NCPR Homes, we believe that real estate is not just about buying and selling properties; it's about creating lasting value and building communities. Our team of seasoned professionals is dedicated to delivering tailored solutions that meet the unique needs and goals of each client.
-        </p>
-
-        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed">
-            Our company culture is rooted in a passion for real estate and a dedication to client satisfaction. We take the time to understand our clients' aspirations and work tirelessly to exceed their expectations. Whether you're a first-time homebuyer or a seasoned investor, NCPR Homes is here to provide the guidance, resources, and support you need.
-        </p>
-
-        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed">
-            NCPR Homes is more than just a real estate advisory firm; we are a community of professionals committed to making a positive impact on the lives of our clients and the neighborhoods we serve. Our approach is client-centric, focused on building long-term relationships based on trust and mutual respect.
-        </p>
-
-        <!-- Our Services Section -->
-        <div class="mt-10">
-            <h2 class="text-2xl text-blue-400 mb-6" style="font-family: Cinzel;">Our Comprehensive Services</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="fade-in p-4 bg-black/20 rounded-lg hover-lift">
-                    <h3 class="text-lg font-medium text-blue-300 mb-2">Property Consulting</h3>
-                    <p class="text-gray-200">Expert guidance on property selection, evaluation, and acquisition tailored to your unique requirements.</p>
+<!-- Introduction Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <!-- About Image with Floating Animation -->
+            <div class="w-full md:w-1/2 relative animated-element">
+                <div class="relative rounded-xl overflow-hidden shadow-2xl">
+                    <img src="media/photos/owner.jpg" alt="NCPR Homes Team" class="w-full h-[500px] object-contain bg-gray-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-800/70 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-white text-xl font-bold" style="font-family: 'Montserrat', sans-serif;">Commitment to Excellence</h3>
+                        <p class="text-white/80 text-sm mt-2">Our dedicated team delivers exceptional real estate solutions</p>
+                    </div>
+                    <!-- Floating Elements -->
+                    <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg floating" style="animation-delay: 0.5s; z-index: 10;">
+                        <i data-lucide="home" class="w-8 h-8 text-orange-500"></i>
+                    </div>
+                    <div class="absolute top-20 left-4 bg-orange-500 rounded-full p-2 shadow-lg floating" style="animation-delay: 1s; z-index: 10;">
+                        <i data-lucide="building" class="w-6 h-6 text-white"></i>
+                    </div>
                 </div>
-                <div class="fade-in p-4 bg-black/20 rounded-lg hover-lift">
-                    <h3 class="text-lg font-medium text-blue-300 mb-2">Investment Advisory</h3>
-                    <p class="text-gray-200">Strategic advice on real estate investments to maximize returns and build lasting wealth.</p>
+            </div>
+            
+            <!-- Text Content with Animated Reveal -->
+            <div class="w-full md:w-1/2">
+                <div class="mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 section-title animated-element" style="font-family: 'Playfair Display', serif;">
+                        Our Vision & Mission
+                    </h2>
                 </div>
-                <div class="fade-in p-4 bg-black/20 rounded-lg hover-lift">
-                    <h3 class="text-lg font-medium text-blue-300 mb-2">Property Management</h3>
-                    <p class="text-gray-200">Comprehensive management solutions for property owners including maintenance, tenant relations, and financial oversight.</p>
+                
+                <div class="timeline-container animated-element mt-10">
+                    <div class="timeline-dot" style="top: 24px;"></div>
+                    <h3 class="text-xl font-bold text-orange-600 mb-3" style="font-family: 'Montserrat', sans-serif;">
+                        Revolutionizing Real Estate
+                    </h3>
+                    <p class="text-gray-700">
+                        NCPR Homes was established with a clear vision to transform how people buy, sell, and invest in properties. We bring expertise, transparency, and personalization to every transaction.
+                    </p>
                 </div>
-                <div class="fade-in p-4 bg-black/20 rounded-lg hover-lift">
-                    <h3 class="text-lg font-medium text-blue-300 mb-2">Market Intelligence</h3>
-                    <p class="text-gray-200">Access to current market trends, property valuations, and area-specific insights for informed decision making.</p>
+                
+                <div class="timeline-container animated-element mt-8">
+                    <div class="timeline-dot" style="top: 24px;"></div>
+                    <h3 class="text-xl font-bold text-orange-600 mb-3" style="font-family: 'Montserrat', sans-serif;">
+                        Creating Lasting Value
+                    </h3>
+                    <p class="text-gray-700">
+                        We believe real estate is about more than buying and selling; it's about creating communities and building wealth. Our mission is to guide you through complexities with confidence.
+                    </p>
+                </div>
+                
+                <div class="timeline-container animated-element mt-8">
+                    <div class="timeline-dot" style="top: 24px;"></div>
+                    <h3 class="text-xl font-bold text-orange-600 mb-3" style="font-family: 'Montserrat', sans-serif;">
+                        Client-Centric Approach
+                    </h3>
+                    <p class="text-gray-700">
+                        Our approach centers on building relationships based on understanding, trust, and mutual respect. We're committed to exceeding expectations with every interaction.
+                    </p>
                 </div>
             </div>
         </div>
-
-        <p class="fade-in text-gray-100 text-justify md:text-lg leading-relaxed mt-8">
-            With expertise across multiple cities and property types, NCPR Homes leverages cutting-edge technology and deep market knowledge to deliver exceptional results. Our team's combined experience and dedication to excellence ensure that every client interaction exceeds expectations and creates lasting value.
-        </p>
     </div>
+</section>
 
-    <!-- Social Media Links -->
-    <div class="fade-in max-w-4xl mx-auto mt-12 p-6">
-        <h3 class="text-center text-xl mb-8" style="font-family: Cinzel;">Connect With Us</h3>
-        <div class="flex justify-center space-x-8 md:space-x-12">
-            <a href="https://www.linkedin.com/company/ncpr-homes/" 
-               class="hover-lift flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 transition-all">
-                <span class="text-blue-400 font-semibold">LinkedIn</span>
-            </a>
-            <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA"
-               class="hover-lift flex items-center space-x-2 px-4 py-2 rounded-lg bg-red-600/20 hover:bg-red-600/30 transition-all">
-                <span class="text-red-400 font-semibold">YouTube</span>
-            </a>
-            <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/"
-               class="hover-lift flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-800/20 hover:bg-blue-800/30 transition-all">
-                <span class="text-blue-400 font-semibold">Facebook</span>
-            </a>
+<!-- Our Core Values -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-12 animated-element">
+            <div class="inline-block p-3 bg-orange-100 rounded-full mb-6">
+                <i data-lucide="heart-handshake" class="w-8 h-8 text-orange-600 icon-heartbeat"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900" style="font-family: 'Playfair Display', serif;">
+                Our Core Values
+            </h2>
+            <p class="text-gray-700" style="font-family: 'Inter', sans-serif;">
+                The principles that guide everything we do and define who we are as a company
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+            <!-- Value Card 1 -->
+            <div class="value-card bg-white p-6 rounded-xl shadow-md animated-element">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <i data-lucide="award" class="w-8 h-8 text-orange-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 text-center mb-3" style="font-family: 'Montserrat', sans-serif;">Excellence</h3>
+                <p class="text-gray-600 text-center">We strive for excellence in every aspect of our service, from property selection to transaction closure.</p>
+            </div>
+
+            <!-- Value Card 2 -->
+            <div class="value-card bg-white p-6 rounded-xl shadow-md animated-element">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <i data-lucide="shield" class="w-8 h-8 text-orange-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 text-center mb-3" style="font-family: 'Montserrat', sans-serif;">Integrity</h3>
+                <p class="text-gray-600 text-center">We conduct our business with unwavering integrity, transparency, and honesty at all times.</p>
+            </div>
+
+            <!-- Value Card 3 -->
+            <div class="value-card bg-white p-6 rounded-xl shadow-md animated-element">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <i data-lucide="lightbulb" class="w-8 h-8 text-orange-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 text-center mb-3" style="font-family: 'Montserrat', sans-serif;">Innovation</h3>
+                <p class="text-gray-600 text-center">We embrace innovation and technology to deliver better solutions and experiences for our clients.</p>
+            </div>
+
+            <!-- Value Card 4 -->
+            <div class="value-card bg-white p-6 rounded-xl shadow-md animated-element">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <i data-lucide="users" class="w-8 h-8 text-orange-600"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 text-center mb-3" style="font-family: 'Montserrat', sans-serif;">Community</h3>
+                <p class="text-gray-600 text-center">We're committed to building thriving communities and contributing positively to neighborhoods we serve.</p>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Our Services with Flip Cards -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-12 animated-element">
+            <div class="inline-block p-3 bg-sky-100 rounded-full mb-6">
+                <i data-lucide="layers" class="w-8 h-8 text-sky-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900" style="font-family: 'Playfair Display', serif;">
+                Our Comprehensive Services
+            </h2>
+            <p class="text-gray-700" style="font-family: 'Inter', sans-serif;">
+                Discover our range of specialized real estate services designed to meet your needs
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+            <!-- Service 1 - Flip Card -->
+            <div class="flip-card animated-element">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front p-6 flex flex-col items-center justify-center">
+                        <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="home" class="w-8 h-8 text-sky-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-sky-700" style="font-family: 'Montserrat', sans-serif;">Property Consulting</h3>
+                        <p class="text-sky-600 mt-2 text-center text-sm">Hover to learn more</p>
+                    </div>
+                    <div class="flip-card-back p-6 flex flex-col items-center justify-center">
+                        <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Montserrat', sans-serif;">Property Consulting</h3>
+                        <p class="text-white text-center">Expert guidance on property selection, evaluation, and acquisition tailored to your unique requirements.</p>
+                        <a href="/services" class="mt-4 inline-flex items-center text-white font-medium">
+                            Learn More <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 2 - Flip Card -->
+            <div class="flip-card animated-element">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front p-6 flex flex-col items-center justify-center">
+                        <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="trending-up" class="w-8 h-8 text-sky-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-sky-700" style="font-family: 'Montserrat', sans-serif;">Investment Advisory</h3>
+                        <p class="text-sky-600 mt-2 text-center text-sm">Hover to learn more</p>
+                    </div>
+                    <div class="flip-card-back p-6 flex flex-col items-center justify-center">
+                        <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Montserrat', sans-serif;">Investment Advisory</h3>
+                        <p class="text-white text-center">Strategic advice on real estate investments to maximize returns and build lasting wealth.</p>
+                        <a href="/services" class="mt-4 inline-flex items-center text-white font-medium">
+                            Learn More <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 3 - Flip Card -->
+            <div class="flip-card animated-element">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front p-6 flex flex-col items-center justify-center">
+                        <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="clipboard-list" class="w-8 h-8 text-sky-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-sky-700" style="font-family: 'Montserrat', sans-serif;">Property Management</h3>
+                        <p class="text-sky-600 mt-2 text-center text-sm">Hover to learn more</p>
+                    </div>
+                    <div class="flip-card-back p-6 flex flex-col items-center justify-center">
+                        <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Montserrat', sans-serif;">Property Management</h3>
+                        <p class="text-white text-center">Comprehensive management solutions for property owners including maintenance, tenant relations, and financial oversight.</p>
+                        <a href="/services" class="mt-4 inline-flex items-center text-white font-medium">
+                            Learn More <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 4 - Flip Card -->
+            <div class="flip-card animated-element">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front p-6 flex flex-col items-center justify-center">
+                        <div class="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="bar-chart-2" class="w-8 h-8 text-sky-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-sky-700" style="font-family: 'Montserrat', sans-serif;">Market Intelligence</h3>
+                        <p class="text-sky-600 mt-2 text-center text-sm">Hover to learn more</p>
+                    </div>
+                    <div class="flip-card-back p-6 flex flex-col items-center justify-center">
+                        <h3 class="text-xl font-bold text-white mb-3" style="font-family: 'Montserrat', sans-serif;">Market Intelligence</h3>
+                        <p class="text-white text-center">Access to current market trends, property valuations, and area-specific insights for informed decision making.</p>
+                        <a href="/services" class="mt-4 inline-flex items-center text-white font-medium">
+                            Learn More <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Numbers Section with Counters -->
+<section class="py-16 bg-gradient-to-br from-orange-500 to-orange-700 text-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Stat 1 -->
+                <div class="flex flex-col items-center animated-element">
+                    <div class="mb-4 relative">
+                        <div class="absolute inset-0 bg-white rounded-full opacity-20 animate-ping"></div>
+                        <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center relative">
+                            <i data-lucide="users" class="w-10 h-10 text-white"></i>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl font-bold mb-2" style="font-family: 'Montserrat', sans-serif;">
+                            <span class="counter" data-target="1000">0</span>+
+                        </p>
+                        <p class="text-white/80">Happy Clients</p>
+                    </div>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="flex flex-col items-center animated-element">
+                    <div class="mb-4 relative">
+                        <div class="absolute inset-0 bg-white rounded-full opacity-20 animate-ping"></div>
+                        <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center relative">
+                            <i data-lucide="home" class="w-10 h-10 text-white"></i>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl font-bold mb-2" style="font-family: 'Montserrat', sans-serif;">
+                            <span class="counter" data-target="500">0</span>+
+                        </p>
+                        <p class="text-white/80">Properties Listed</p>
+                    </div>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="flex flex-col items-center animated-element">
+                    <div class="mb-4 relative">
+                        <div class="absolute inset-0 bg-white rounded-full opacity-20 animate-ping"></div>
+                        <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center relative">
+                            <i data-lucide="check-circle" class="w-10 h-10 text-white"></i>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl font-bold mb-2" style="font-family: 'Montserrat', sans-serif;">
+                            <span class="counter" data-target="300">0</span>+
+                        </p>
+                        <p class="text-white/80">Successful Deals</p>
+                    </div>
+                </div>
+
+                <!-- Stat 4 -->
+                <div class="flex flex-col items-center animated-element">
+                    <div class="mb-4 relative">
+                        <div class="absolute inset-0 bg-white rounded-full opacity-20 animate-ping"></div>
+                        <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center relative">
+                            <i data-lucide="map-pin" class="w-10 h-10 text-white"></i>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl font-bold mb-2" style="font-family: 'Montserrat', sans-serif;">
+                            <span class="counter" data-target="10">0</span>+
+                        </p>
+                        <p class="text-white/80">Cities Covered</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Connect With Us Section -->
+<section class="py-16 bg-white relative overflow-hidden">
+    <div class="absolute right-0 bottom-0 opacity-5">
+        <i data-lucide="home" class="w-64 h-64 text-orange-500"></i>
+    </div>
+    <div class="absolute left-0 top-0 opacity-5">
+        <i data-lucide="building" class="w-64 h-64 text-orange-500"></i>
+    </div>
+    
+    <!-- Decorative elements -->
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-orange-400 to-orange-500"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl mx-auto text-center animated-element">
+            <div class="inline-block p-4 bg-orange-500 rounded-full mb-6 shadow-lg shadow-orange-500/30">
+                <i data-lucide="share-2" class="w-8 h-8 text-white"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900" style="font-family: 'Playfair Display', serif;">
+                Connect With Us
+            </h2>
+            <p class="text-xl text-gray-600 mb-10">
+                Follow us on social media to stay updated with the latest properties and real estate insights
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="https://www.linkedin.com/company/ncpr-homes/" class="group flex items-center px-6 py-4 bg-gray-50 border border-gray-100 hover:bg-orange-600 hover:text-white text-gray-800 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-600/20">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4 transition-all duration-300 group-hover:bg-white/20">
+                        <i data-lucide="linkedin" class="w-6 h-6 text-orange-600 group-hover:text-white"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-sm opacity-60">Follow us on</p>
+                        <p class="font-bold text-lg">LinkedIn</p>
+                    </div>
+                </a>
+                
+                <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA" class="group flex items-center px-6 py-4 bg-gray-50 border border-gray-100 hover:bg-orange-600 hover:text-white text-gray-800 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-600/20">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4 transition-all duration-300 group-hover:bg-white/20">
+                        <i data-lucide="youtube" class="w-6 h-6 text-orange-600 group-hover:text-white"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-sm opacity-60">Watch on</p>
+                        <p class="font-bold text-lg">YouTube</p>
+                    </div>
+                </a>
+                
+                <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/" class="group flex items-center px-6 py-4 bg-gray-50 border border-gray-100 hover:bg-orange-600 hover:text-white text-gray-800 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-600/20">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4 transition-all duration-300 group-hover:bg-white/20">
+                        <i data-lucide="facebook" class="w-6 h-6 text-orange-600 group-hover:text-white"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-sm opacity-60">Like us on</p>
+                        <p class="font-bold text-lg">Facebook</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Animated particles -->
+    <div class="absolute bottom-10 left-10 w-20 h-20 rounded-full bg-orange-500/10 animate-pulse" style="animation-delay: 0.5s"></div>
+    <div class="absolute top-20 right-20 w-16 h-16 rounded-full bg-orange-500/10 animate-pulse" style="animation-delay: 1.2s"></div>
+    <div class="absolute bottom-40 right-10 w-24 h-24 rounded-full bg-orange-500/10 animate-pulse" style="animation-delay: 0.8s"></div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // If this is a timeline dot, add the pulse animation
+                    if (entry.target.classList.contains('timeline-dot')) {
+                        entry.target.classList.add('animated');
+                    }
+                    
+                    // If this is a text reveal element, add the revealed class
+                    if (entry.target.classList.contains('text-reveal')) {
+                        entry.target.classList.add('revealed');
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe all animated elements
+        document.querySelectorAll('.animated-element, .timeline-dot, .text-reveal').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // The lower the number, the faster the animation
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                
+                const inc = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    counter.classList.add('animate');
+                    setTimeout(() => {
+                        counter.classList.remove('animate');
+                        if (count + inc < target) {
+                            setTimeout(animateCounters, 5);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    }, 50);
+                }
+            });
+        }
+        
+        // Start counter animation when the section is in view
+        const statsSection = document.querySelector('.counter').closest('section');
+        const statsSectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(animateCounters, 500);
+                    statsSectionObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        statsSectionObserver.observe(statsSection);
+    });
+</script>
 {%endblock%}

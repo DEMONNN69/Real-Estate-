@@ -2,100 +2,717 @@
 <html lang="en">
 
 <head>
+    {% load static tailwind_tags %}
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Agent</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Contact an Agent | NCPR-HOMES</title>
+    {% tailwind_css %}
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .nav-link, .section-title {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+        .delay-500 {
+            animation-delay: 0.5s;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* Building animation */
+        .building {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .building-part {
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        /* Gradient background */
+        .gradient-bg {
+            background: linear-gradient(135deg, #f9f9f9 0%, #e9ecef 100%);
+        }
+
+        /* Input styles */
+        .form-input {
+            @apply w-full p-3 border border-gray-300 rounded-lg transition-all duration-300 bg-white;
+        }
+        
+        .form-input:focus {
+            @apply border-orange-500 ring-2 ring-orange-100 outline-none;
+        }
+
+        .form-label {
+            @apply block text-sm font-medium text-gray-700 mb-1;
+        }
+
+        /* Custom checkbox */
+        .custom-checkbox {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .custom-checkbox:hover input ~ .checkmark {
+            background-color: #f9fafb;
+        }
+        
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #ea580c;
+            border-color: #ea580c;
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .custom-checkbox .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Particle animation */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(234, 88, 12, 0.3);
+        }
+
+        /* Cube animation */
+        .scene {
+            perspective: 1000px;
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+        
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(-20deg) rotateY(40deg);
+            animation: rotate 20s infinite linear;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotateX(-20deg) rotateY(0); }
+            to { transform: rotateX(-20deg) rotateY(360deg); }
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            opacity: 0.8;
+        }
+        
+        .front  { transform: rotateY(0deg) translateZ(75px); background-color: rgba(234, 88, 12, 0.4); }
+        .right  { transform: rotateY(90deg) translateZ(75px); background-color: rgba(234, 88, 12, 0.2); }
+        .back   { transform: rotateY(180deg) translateZ(75px); background-color: rgba(234, 88, 12, 0.4); }
+        .left   { transform: rotateY(-90deg) translateZ(75px); background-color: rgba(234, 88, 12, 0.2); }
+        .top    { transform: rotateX(90deg) translateZ(75px); background-color: rgba(234, 88, 12, 0.3); }
+        .bottom { transform: rotateX(-90deg) translateZ(75px); background-color: rgba(234, 88, 12, 0.3); }
+
+        /* Card hover effect */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 
-<body class="h-screen lg:m-0">
-    <div class="container h-screen lg:flex lg:space-x-0">
-        <div class="lg:w-2/5 lg:pr-2 m-4 lg:m-0">
-            
-            <form action="{% url 'contact_agent' %}" method="post" class="space-y-6 lg:mx-7" style="font-family: Cinzel;">
-                <div class="lg:w-full lg:text-center lg:my-10 w-full">
-                    <div style="font-family: Cinzel;" class="text-xs font-light mt-12">
-                        Let me know how can I assist you
-                    </div>
-                    <br>
-                    {% csrf_token %}
-                    <div class="lg:text-5xl text-4xl uppercase tracking-wider font-light" style="font-family: Montserrat;">
-                        GET IN TOUCH
-                    </div>
+<body class="bg-white">
+    <!-- Notification Messages -->
+    {% if messages %}
+    <div id="message-bar" class="fixed top-6 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-green-500 text-white px-6 py-4 rounded-lg shadow-xl flex flex-col items-center z-50">
+        <div class="flex justify-between items-center w-full">
+            <span class="font-medium">Notification</span>
+            <button onclick="hideMessageBar()" class="text-white hover:text-red-200 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        {% for message in messages %}
+        <p class="mt-2 text-center">{{ message }}</p>
+        {% endfor %}
+        <div class="relative w-full h-1 bg-white mt-4 rounded-full overflow-hidden">
+            <div id="progress-bar" class="absolute left-0 top-0 h-full bg-green-300 rounded-full"></div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Navigation Bar - Fixed with mobile styling -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-sm" id="navbar">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-2">
+                    <img src="/media/icons/image1.png" alt="NCPR Homes" class="h-8 md:h-10">
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">HOME</a>
+                    <a href="/contact_agent" class="text-orange-600 font-medium hover:text-orange-700 transition duration-300" style="font-family: 'Cinzel', serif;">CONTACT</a>
+                    <a href="/services" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">SERVICES</a>
+                    <a href="/about" class="text-gray-900 font-medium hover:text-orange-600 transition duration-300" style="font-family: 'Cinzel', serif;">ABOUT</a>
                 </div>
-            
-                <!-- Include hidden next_url field -->
-                <input type="hidden" name="next_url" value="{{ request.META.HTTP_REFERER }}">
-            
-                <div class="mb-4 lg:flex lg:space-x-8 space-y-6 lg:space-y-0">
-                    <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 mt-1" placeholder="First Name" required>
-                    <input type="text" id="last-name" name="last_name" class="w-full p-2 border border-gray-300 mt-1" placeholder="Last Name">
-                </div>
-            
-                <div class="mb-4">
-                    <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 mt-1" placeholder="Email">
-                </div>
-                <div class="mb-4">
-                    <input type="tel" id="phone" name="phone" class="w-full p-2 border border-gray-300 mt-1" placeholder="Phone Number" required>
-                </div>
-                <div class="mb-4">
-                    <textarea id="message" name="message" class="w-full p-2 border border-gray-300 mt-1" rows="4" placeholder="Message" required></textarea>
-                </div>
-            
-                <div class="tc text-xs flex items-start" style="font-family: Montserrat;">
-                    <input type="checkbox" id="consent" name="consent" class="m-1 rounded-none" required>
-                    <span class="text-justify">
-                        By providing NCPR Homes your contact information, you acknowledge and agree to our Privacy Policy and consent to receiving marketing communications from us. These communications may include calls, texts, and emails, some of which may be automated or use prerecorded messages. Your consent to receive these communications is not a condition for purchasing any products or services.
-                    </span>
-                </div>
-            
-                <div>
-                    <button type="submit" class="border-black border w-full lg:w-32 text-black lg:p-3 p-2 px-8 hover:text-white hover:bg-black duration-300 float-right mb-4">
-                        Submit
-                    </button>
-                </div>
-            </form>
+
+                <!-- Mobile Navigation Toggle -->
+                <button class="md:hidden text-gray-900 focus:outline-none" id="hamburger">
+                    <i data-lucide="menu" id="hamburger-img" class="w-6 h-6"></i>
+                    <i data-lucide="x" id="hamburger-close" class="w-6 h-6 hidden"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="lg:w-3/5 h-2/4 lg:h-screen relative lg:m-0 mt-20" style="font-family: Montserrat;">
-            <img src="/media/photos/contactus-fin_upscale.jpeg" alt="" class="object-cover h-full w-full">
-            <div class="bg-black absolute opacity-50 top-0 h-full w-full"></div>
-            <div class="absolute top-0 left-0 mx-6 space-y-8 mt-10 lg:mt-20 lg:ml-12">
-                <h1 class="text-white font-light text-3xl lg:text-5xl" style="font-family: Montserrat;">NCPR HOMES</h1>
-                <h1 class="text-white text-xs lg:text-base">ncpr.23realestate@gmail.com</h1>
-                <h1 class="text-white text-xs lg:text-base">+91 070456-26807</h1>
-                <h1 class="text-white text-xs lg:text-base">Follow us on</h1>
-                <hr class="text-white lg:mt-10 w-2/3 hidden lg:block">
-                <div class="social-media flex justify-start items-center space-x-6 lg:space-x-12">
-                    <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/" target="_blank">
-                        <img src="/media/icons/facebook.png" alt="" class=" h-6 lg:h-8">
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA" target="_blank">
-                        <img src="/media/icons/youtube.png" alt="" class=" h-7 lg:h-9   ">
-                    </a>
-                    <a href="https://www.linkedin.com/company/ncpr-homes/" target="_blank">
-                        <img src="/media/icons/linkedin.png" alt="" class=" h-7 lg:h-8">
+        <!-- Mobile Navigation Menu (hidden by default) -->
+        <div class="mobile-menu hidden md:hidden bg-white shadow-lg rounded-b-lg absolute w-full z-50 transform transition-transform duration-300 origin-top" id="menu">
+            <div class="container mx-auto px-4 py-3 space-y-4" style="font-family: 'Cinzel', serif;">
+                <a href="/" class="block py-2 text-gray-800 hover:text-orange-600 border-b border-gray-100">HOME</a>
+                <a href="/contact_agent" class="block py-2 text-orange-600 hover:text-orange-700 border-b border-gray-100">CONTACT</a>
+                <a href="/services" class="block py-2 text-gray-800 hover:text-orange-600 border-b border-gray-100">SERVICES</a>
+                <a href="/about" class="block py-2 text-gray-800 hover:text-orange-600">ABOUT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Banner -->
+    <header class="bg-gradient-to-r from-orange-600 to-orange-800 pt-24 pb-16 relative">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl text-white mb-2 fade-in" style="font-family: 'Montserrat', sans-serif;">Speak with Our Experts</h1>
+            <p class="text-orange-100 max-w-2xl mx-auto fade-in delay-100" style="font-family: 'Inter', sans-serif;">
+                Let our team of professional real estate agents guide you through your property journey
+            </p>
+        </div>
+        <!-- Wave shape divider -->
+        <div class="absolute -bottom-3 left-0 right-0">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" class="w-full h-auto" preserveAspectRatio="none">
+                <path fill="#ffffff" fill-opacity="1" d="M0,16L80,21.3C160,27,320,37,480,37.3C640,37,800,27,960,21.3C1120,16,1280,16,1360,16L1440,16L1440,80L1360,80C1280,80,1120,80,960,80C800,80,640,80,480,80C320,80,160,80,80,80L0,80Z"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <!-- Contact Form Card -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden fade-in delay-200">
+                    <div class="px-6 py-8 md:p-10">
+                        <div class="text-center mb-8">
+                            <span class="inline-block px-4 py-1 bg-orange-100 text-orange-600 rounded-full text-sm font-medium mb-3">Contact Us</span>
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2" style="font-family: 'Montserrat', sans-serif;">Get in Touch</h2>
+                            <p class="text-gray-600" style="font-family: 'Inter', sans-serif;">Fill out the form below and we'll connect you with the right expert</p>
+                        </div>
+
+                        <form action="{% url 'contact_agent' %}" method="post" class="space-y-6">
+                            {% csrf_token %}
+                            <!-- Include hidden next_url field -->
+                            <input type="hidden" name="next_url" value="{{ request.META.HTTP_REFERER }}">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <input type="text" id="name" name="name" class="peer w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 placeholder-transparent focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="First Name" required>
+                                    <label for="name" class="absolute left-4 -top-2.5 px-1 text-sm bg-white text-gray-600 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-orange-600">First Name <span class="text-red-500">*</span></label>
+                                </div>
+                                <div class="relative">
+                                    <input type="text" id="last-name" name="last_name" class="peer w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 placeholder-transparent focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="Last Name">
+                                    <label for="last-name" class="absolute left-4 -top-2.5 px-1 text-sm bg-white text-gray-600 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-orange-600">Last Name</label>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <input type="email" id="email" name="email" class="peer w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 placeholder-transparent focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="Email">
+                                    <label for="email" class="absolute left-4 -top-2.5 px-1 text-sm bg-white text-gray-600 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-orange-600">Email</label>
+                                </div>
+                                <div class="relative">
+                                    <input type="tel" id="phone" name="phone" class="peer w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 placeholder-transparent focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-100" placeholder="Phone Number" required>
+                                    <label for="phone" class="absolute left-4 -top-2.5 px-1 text-sm bg-white text-gray-600 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-orange-600">Phone Number <span class="text-red-500">*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="relative">
+                                <textarea id="message" name="message" rows="4" class="peer w-full px-4 py-3 rounded-lg border border-gray-300 text-gray-800 placeholder-transparent focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-100 resize-none" placeholder="Your Message" required></textarea>
+                                <label for="message" class="absolute left-4 -top-2.5 px-1 text-sm bg-white text-gray-600 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-orange-600">Your Message <span class="text-red-500">*</span></label>
+                            </div>
+
+                            <div>
+                                <label class="flex items-start space-x-3 cursor-pointer group">
+                                    <div class="relative flex items-start pt-1">
+                                        <input type="checkbox" id="consent" name="consent" required class="peer opacity-0 absolute h-5 w-5 cursor-pointer z-10">
+                                        <div class="h-5 w-5 border border-gray-300 rounded flex items-center justify-center transition-all bg-white peer-checked:bg-orange-600 peer-checked:border-orange-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white opacity-0 peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="text-sm text-gray-700 leading-relaxed">
+                                        By providing NCPR Homes your contact information, you acknowledge and agree to our Privacy Policy and consent to receiving marketing communications from us. These communications may include calls, texts, and emails, some of which may be automated or use prerecorded messages.
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="pt-3">
+                                <button type="submit" class="w-full py-3.5 px-6 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg active:translate-y-0.5">
+                                    <i data-lucide="send" class="w-4 h-4 mr-2"></i>
+                                    Submit Request
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
+                <!-- 3D Animation and Contact Info Section -->
+                <div class="lg:sticky lg:top-24">
+                    <!-- 3D Building Animation -->
+                    <div class="relative h-72 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl overflow-hidden mb-8 fade-in delay-300">
+                        <div id="building-animation" class="absolute inset-0 flex items-center justify-center">
+                            <!-- 3D Buildings will be rendered here -->
+                            <div class="scene mx-4">
+                                <div class="cube">
+                                    <div class="cube-face front"></div>
+                                    <div class="cube-face back"></div>
+                                    <div class="cube-face right"></div>
+                                    <div class="cube-face left"></div>
+                                    <div class="cube-face top"></div>
+                                    <div class="cube-face bottom"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="scene mx-4 mt-16">
+                                <div class="cube" style="animation-delay: -5s;">
+                                    <div class="cube-face front bg-blue-200 bg-opacity-40"></div>
+                                    <div class="cube-face back bg-blue-200 bg-opacity-40"></div>
+                                    <div class="cube-face right bg-blue-100 bg-opacity-40"></div>
+                                    <div class="cube-face left bg-blue-100 bg-opacity-40"></div>
+                                    <div class="cube-face top bg-blue-300 bg-opacity-40"></div>
+                                    <div class="cube-face bottom bg-blue-300 bg-opacity-40"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="scene mx-4 mb-16">
+                                <div class="cube" style="animation-delay: -10s; animation-duration: 15s;">
+                                    <div class="cube-face front bg-amber-200 bg-opacity-40"></div>
+                                    <div class="cube-face back bg-amber-200 bg-opacity-40"></div>
+                                    <div class="cube-face right bg-amber-100 bg-opacity-40"></div>
+                                    <div class="cube-face left bg-amber-100 bg-opacity-40"></div>
+                                    <div class="cube-face top bg-amber-300 bg-opacity-40"></div>
+                                    <div class="cube-face bottom bg-amber-300 bg-opacity-40"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Floating elements -->
+                            <div class="absolute bottom-4 right-4 float-animation" style="animation-delay: -2s;">
+                                <div class="w-16 h-16 bg-white bg-opacity-30 rounded-full"></div>
+                            </div>
+                            <div class="absolute top-4 left-4 float-animation" style="animation-delay: -4s;">
+                                <div class="w-12 h-12 bg-orange-300 bg-opacity-30 rounded-full"></div>
+                            </div>
+                            
+                            <!-- Particles -->
+                            <div class="particles" id="particles"></div>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-50 via-transparent to-transparent"></div>
+                    </div>
 
+                    <!-- Contact Info Cards -->
+                    <div class="space-y-4">
+                        <!-- Phone Card -->
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 card-hover fade-in delay-400 flex items-center">
+                            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5 text-orange-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-gray-800 font-semibold">Call Us</h3>
+                                <p class="text-gray-600">+91 070456-26807</p>
+                                <p class="text-gray-600">+91 84528-62301</p>
+                            </div>
+                        </div>
 
+                        <!-- Email Card -->
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 card-hover fade-in delay-500 flex items-center">
+                            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5 text-orange-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-gray-800 font-semibold">Email Us</h3>
+                                <p class="text-gray-600">contact@ncprhomes.com</p>
+                            </div>
+                        </div>
+
+                        <!-- Social Media Card -->
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 card-hover fade-in delay-500">
+                            <h3 class="text-gray-800 font-semibold mb-4">Connect With Us</h3>
+                            <div class="flex items-center space-x-4">
+                                <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/" target="_blank" class="w-10 h-10 bg-gray-100 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300 group">
+                                    <i data-lucide="facebook" class="w-5 h-5 text-gray-700 group-hover:text-white"></i>
+                                </a>
+                                <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA" target="_blank" class="w-10 h-10 bg-gray-100 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300 group">
+                                    <i data-lucide="youtube" class="w-5 h-5 text-gray-700 group-hover:text-white"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/company/ncpr-homes/" target="_blank" class="w-10 h-10 bg-gray-100 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300 group">
+                                    <i data-lucide="linkedin" class="w-5 h-5 text-gray-700 group-hover:text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        
-                <!-- Company Info -->
-                <div class="mb-4 md:mb-0 absolute bottom-0 flex-col items-end text-white right-3 hidden lg:flex">
-                    <h2 class="text-xl font-bold">NCPR Homes</h2>
-                    <p class="mt-2">Your trusted partner in real estate.</p>
-                    <p class="mt-2">© 2024 NCPR Homes. All rights reserved.</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-orange-600 to-orange-800">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-3xl font-bold text-white mb-4" style="font-family: 'Montserrat', sans-serif;">Ready to Find Your Dream Home?</h2>
+                <p class="text-orange-100 mb-8" style="font-family: 'Inter', sans-serif;">
+                    Let our experts help you navigate the real estate market to find the perfect property for your needs
+                </p>
+                <a href="/" class="inline-flex items-center px-6 py-3 bg-white text-orange-600 font-medium rounded-lg hover:bg-orange-50 transition duration-300" style="font-family: 'Cinzel', serif;">
+                    <i data-lucide="search" class="w-4 h-4 mr-2"></i>
+                    Browse Properties
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 text-gray-800 py-10 md:py-14 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <!-- Footer Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Company Information -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center mb-5">
+                        <img src="/media/icons/image1.png" alt="NCPR Homes" class="h-10 mr-3">
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                        Your trusted partner in real estate, helping you find the perfect property that meets your needs and exceeds your expectations since 2023.
+                    </p>
+                    <p class="text-gray-500 text-sm mt-6">© 2024 NCPR Homes. All rights reserved.</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="md:col-span-1">
+                    <h3 class="text-lg font-bold mb-5 text-gray-900" style="font-family: 'Cinzel', serif;">Quick Links</h3>
+                    <ul class="grid grid-cols-2 md:grid-cols-1 gap-3">
+                        <li>
+                            <a href="/" class="text-gray-600 hover:text-orange-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/about" class="text-gray-600 hover:text-orange-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                <span>About Us</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/services" class="text-gray-600 hover:text-orange-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                <span>Services</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/contact_agent" class="text-gray-600 hover:text-orange-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="chevron-right" class="w-4 h-4 mr-2 text-orange-500"></i>
+                                <span>Contact</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
+                <!-- Contact Information -->
+                <div class="md:col-span-1">
+                    <h3 class="text-lg font-bold mb-5 text-gray-900" style="font-family: 'Cinzel', serif;">Contact Us</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i data-lucide="phone" class="w-5 h-5 mr-3 text-orange-500 flex-shrink-0"></i>
+                            <span class="text-gray-600">+91 84528-62301</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="mail" class="w-5 h-5 mr-3 text-orange-500 flex-shrink-0"></i>
+                            <span class="text-gray-600">contact@ncprhomes.com</span>
+                        </li>
+                        <li class="mt-6">
+                            <h4 class="text-gray-800 text-sm font-medium mb-3" style="font-family: 'Cinzel', serif;">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://www.facebook.com/people/NCPR-HOMES/61550468357089/" target="_blank" class="w-10 h-10 bg-gray-200 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="facebook" class="w-5 h-5 text-gray-700 hover:text-white"></i>
+                                </a>
+                                <a href="https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA" target="_blank" class="w-10 h-10 bg-gray-200 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="youtube" class="w-5 h-5 text-gray-700 hover:text-white"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/company/ncpr-homes/" target="_blank" class="w-10 h-10 bg-gray-200 hover:bg-orange-500 rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i data-lucide="linkedin" class="w-5 h-5 text-gray-700 hover:text-white"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            
+            <!-- Footer Bottom Separator and Credits -->
+            <div class="mt-10 pt-6 border-t border-gray-200 text-center md:text-left">
+                <p class="text-gray-500 text-xs">
+                    Designed with <i data-lucide="heart" class="w-3 h-3 inline-block text-orange-500"></i> by NCPR Homes Development Team.
+                </p>
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            
+            // Create particles
+            createParticles();
+            
+            // Mobile menu functionality
+            const hamburger = document.getElementById("hamburger");
+            const hamburgerImg = document.getElementById("hamburger-img");
+            const hamburgerClose = document.getElementById("hamburger-close");
+            const menu = document.getElementById("menu");
+          
+            let menuOpen = false; // Track menu state
+          
+            if (hamburger && menu) {
+                hamburger.addEventListener("click", function () {
+                    if (!menuOpen) {
+                        menu.classList.remove("hidden");
+                        menu.classList.add("scale-100");
+                        menu.classList.remove("scale-90");
+                        hamburgerImg.classList.add("hidden");
+                        hamburgerClose.classList.remove("hidden");
+                    } else {
+                        menu.classList.add("scale-90");
+                        menu.classList.remove("scale-100");
+                        setTimeout(() => {
+                          menu.classList.add("hidden");
+                        }, 300);
+                        hamburgerClose.classList.add("hidden");
+                        hamburgerImg.classList.remove("hidden");
+                    }
+                    menuOpen = !menuOpen;
+                });
+            }
+
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            
+            function adjustNavbar() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-md');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                }
+            }
+            
+            // Apply on page load
+            adjustNavbar();
+            
+            // Apply on scroll
+            window.addEventListener('scroll', adjustNavbar);
+
+            // Message bar functionality
+            var messageBar = document.getElementById('message-bar');
+            var progressBar = document.getElementById('progress-bar');
+
+            if (messageBar && progressBar) {
+                // Set initial width of the progress bar to 100%
+                progressBar.style.width = '100%';
+
+                // Duration for how long the message bar will be visible (5 seconds)
+                var duration = 5000;
+
+                // Use CSS transitions to animate the progress bar in reverse
+                progressBar.style.transition = `width ${duration}ms linear`;
+                setTimeout(() => {
+                    progressBar.style.width = '0%';
+                }, 0);
+
+                // Hide the message bar after the duration
+                setTimeout(function () {
+                    messageBar.style.display = 'none';
+                }, duration);
+            }
+        });
+
+        // Function to manually hide the message bar when close button is clicked
+        function hideMessageBar() {
+            var messageBar = document.getElementById('message-bar');
+            if (messageBar) {
+                messageBar.style.display = 'none';
+            }
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2 and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position within container
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                
+                // Animation
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+    </script>
 </body>
 
 </html>

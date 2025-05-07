@@ -1,35 +1,586 @@
 {%extends 'basicbg.html'%}
+
+{% block hero_content %}
+<h1 class="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-4 leading-tight" style="font-family: 'Montserrat', sans-serif;">
+    Our Services
+</h1>
+<p class="text-lg md:text-xl text-gray-100 mb-8 font-light" style="font-family: 'Inter', sans-serif;">
+    Comprehensive real estate solutions tailored to your needs
+</p>
+{% endblock %}
+
 {%block body%}
 {% load static tailwind_tags %}
 {% tailwind_css %}
 {%load static%}
-{%load static%}
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+    
+    .service-card {
+        transition: all 0.4s ease;
+        overflow: hidden;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-10px);
+    }
+    
+    .service-card .card-content {
+        transition: all 0.5s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    
+    .service-card:hover .card-bg {
+        opacity: 0.15; /* Reduced opacity for better text visibility */
+    }
+    
+    .service-card:hover .card-icon {
+        transform: translateY(-10px) scale(1.1);
+    }
+    
+    .service-card .card-icon {
+        transition: all 0.4s ease;
+    }
+    
+    .service-card .flex-grow {
+        flex: 1;
+    }
+    
+    .service-card .card-details {
+        max-height: 0;
+        opacity: 0;
+        transition: all 0.5s ease;
+        overflow: hidden;
+    }
+    
+    .service-card:hover .card-details {
+        max-height: 150px; /* Reduced height to prevent overflow */
+        opacity: 1;
+    }
+    
+    /* Make sure text remains visible on hover */
+    .service-card:hover h3,
+    .service-card:hover p,
+    .service-card:hover li,
+    .service-card:hover a {
+        color: #111827; /* Dark gray text on hover to ensure visibility */
+        position: relative;
+        z-index: 10; /* Place text above the background overlay */
+    }
+    
+    .service-card:hover .card-icon-hidden {
+        opacity: 0.2;
+        transform: rotate(15deg) scale(1.4);
+        z-index: 1; /* Keep the background icon behind the text */
+    }
+    
+    .card-icon-hidden {
+        opacity: 0;
+        transition: all 0.4s ease;
+        transform: rotate(0) scale(1);
+        z-index: 1;
+    }
+    
+    /* Fix for button visibility and color issues */
+    .service-card .card-footer {
+        margin-top: auto;
+        padding-top: 15px;
+        position: relative;
+        z-index: 30;
+        width: 100%;
+        background-color: transparent;
+    }
+    
+    .service-card:hover .card-footer {
+        background-color: transparent;
+    }
+    
+    /* Specific button styling for each card */
+    .service-card .card-footer .orange-btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        background-color: rgba(251, 146, 60, 0.15);
+        transition: all 0.3s ease;
+    }
+    
+    .service-card .card-footer .orange-btn:hover {
+        background-color: rgba(251, 146, 60, 0.3);
+    }
+    
+    .service-card .card-footer .green-btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        background-color: rgba(74, 222, 128, 0.15);
+        transition: all 0.3s ease;
+    }
+    
+    .service-card .card-footer .green-btn:hover {
+        background-color: rgba(74, 222, 128, 0.3);
+    }
+    
+    .service-card .card-footer .purple-btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        background-color: rgba(168, 85, 247, 0.15);
+        transition: all 0.3s ease;
+    }
+    
+    .service-card .card-footer .purple-btn:hover {
+        background-color: rgba(168, 85, 247, 0.3);
+    }
+    
+    /* Fixed height for the content area to prevent overflow */
+    .service-card .details-container {
+        max-height: 265px;
+        overflow: hidden;
+    }
+    
+    .feature-card {
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .pulse-animation {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    
+    .section-divider {
+        height: 5px;
+        background: linear-gradient(90deg, transparent, #f97316, transparent);
+    }
 </style>
-<main class="p-2 md:p-16 ">
-    <h2 class="text-3xl md:text-5xl font-light text-center my-8  text-black uppercase" style="font-family: Cinzel;">Our Services</h2>
-    <div class="space-y-6 md:space-y-8 mt-20 lg:mt-40 font-light" style="font-family: Montserrat;">
-        <!-- Under Construction Projects -->
-        <div class="text-white p-4  ">
-            <h3 class="text-xl font-semibold mb-4">Under Construction Projects</h3>
-            <p class="text-lg text-justify">We offer a range of under construction projects, including buildings, villas, and bungalows. These properties are in various stages of development, providing you with opportunities to invest in future homes and properties.</p>
-        </div>
 
-        <!-- Ready to Move Projects -->
-        <div class="text-white p-4 ">
-            <h3 class="text-xl font-semibold mb-4">Ready to Move Projects</h3>
-            <p class="text-lg text-justify">Our ready-to-move-in projects include a variety of buildings, villas, and bungalows. These properties are available for immediate occupancy, offering you a hassle-free moving experience.</p>
-        </div>
-
-        <!-- Rented Homes -->
-        <div class="text-white p-4 ">
-            <h3 class="text-xl font-semibold mb-4">Rented Homes</h3>
-            <p class="text-lg text-justify">Currently, our website does not have a search function for rented homes. However, we do offer a selection of rented properties. Please contact us directly for information on available rentals.</p>
-            <p class="mt-4 font-semibold">Contact us for rented homes:</p>
-            <a href="/contact" class="inline-block bg-white bg-opacity-5 border border-white  text-center items-center text-white px-3 py-1 hover:bg-white duration-300 mt-6 hover:text-black" style="font-family: Cinzel;">Get in Touch</a>
+<!-- Services Hero Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto">
+            <div class="inline-block p-3 bg-orange-100 rounded-full mb-6">
+                <i data-lucide="home" class="w-8 h-8 text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900" style="font-family: 'Montserrat', sans-serif;">
+                Expert Real Estate Services
+            </h2>
+            <p class="text-lg text-gray-700 mb-8" style="font-family: 'Inter', sans-serif;">
+                We provide comprehensive real estate services to help you find your dream property, make smart investments, and navigate the complexities of real estate transactions with confidence.
+            </p>
         </div>
     </div>
-</main>
+</section>
+
+<!-- Main Services Section with Cards -->
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Under Construction Projects Card -->
+            <div class="service-card bg-white rounded-2xl shadow-lg overflow-hidden relative h-[420px]">
+                <div class="card-bg absolute inset-0 bg-gradient-to-br from-orange-600 to-orange-800 opacity-0 transition-all duration-500"></div>
+                <div class="absolute top-8 right-8 card-icon-hidden">
+                    <i data-lucide="building" class="w-32 h-32 text-white"></i>
+                </div>
+                <div class="card-content relative p-8">
+                    <div class="details-container">
+                        <div class="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-6 card-icon">
+                            <i data-lucide="hammer" class="w-8 h-8 text-orange-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900 group-hover:text-white" style="font-family: 'Montserrat', sans-serif;">
+                            Under Construction Projects
+                        </h3>
+                        <p class="text-gray-700 mb-6">
+                            Invest early in promising properties with our diverse portfolio of under-construction projects.
+                        </p>
+                        <div class="card-details">
+                            <ul class="space-y-3 text-gray-700 mb-6">
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-orange-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Premium villas, apartments and bungalows at pre-launch prices</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-orange-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Flexible payment plans during construction phases</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-orange-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Higher ROI potential as property value appreciates</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/special_filter/1" class="inline-flex items-center text-orange-600 hover:text-orange-800 font-medium orange-btn">
+                            View Projects <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ready to Move Projects Card -->
+            <div class="service-card bg-white rounded-2xl shadow-lg overflow-hidden relative h-[420px]">
+                <div class="card-bg absolute inset-0 bg-gradient-to-br from-green-600 to-green-800 opacity-0 transition-all duration-500"></div>
+                <div class="absolute top-8 right-8 card-icon-hidden">
+                    <i data-lucide="home" class="w-32 h-32 text-white"></i>
+                </div>
+                <div class="card-content relative p-8">
+                    <div class="details-container">
+                        <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-6 card-icon">
+                            <i data-lucide="key" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900 group-hover:text-white" style="font-family: 'Montserrat', sans-serif;">
+                            Ready to Move Projects
+                        </h3>
+                        <p class="text-gray-700 mb-6">
+                            Find your dream home today with our selection of immediate possession properties.
+                        </p>
+                        <div class="card-details">
+                            <ul class="space-y-3 text-gray-700 mb-6">
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Thoroughly inspected properties with quality assurance</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Immediate possession with hassle-free documentation</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Move-in ready homes with all amenities functioning</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/special_filter/2" class="inline-flex items-center text-green-600 hover:text-green-800 font-medium green-btn">
+                            View Properties <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cost-Efficient Properties Card -->
+            <div class="service-card bg-white rounded-2xl shadow-lg overflow-hidden relative h-[420px]">
+                <div class="card-bg absolute inset-0 bg-gradient-to-br from-purple-600 to-purple-800 opacity-0 transition-all duration-500"></div>
+                <div class="absolute top-8 right-8 card-icon-hidden">
+                    <i data-lucide="tag" class="w-32 h-32 text-white"></i>
+                </div>
+                <div class="card-content relative p-8">
+                    <div class="details-container">
+                        <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-6 card-icon">
+                            <i data-lucide="tag" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900" style="font-family: 'Montserrat', sans-serif;">
+                            Cost-Efficient Properties
+                        </h3>
+                        <p class="text-gray-700 mb-6">
+                            Exceptional value properties that offer the best balance of quality and affordability.
+                        </p>
+                        <div class="card-details">
+                            <ul class="space-y-3 text-gray-700 mb-6">
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-purple-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Budget-friendly options without compromising on quality</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-purple-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Lower maintenance costs and optimal space utilization</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-purple-600 flex-shrink-0 mt-0.5"></i>
+                                    <span>Properties in developing areas with growth potential</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/special_filter/3" class="inline-flex items-center text-purple-600 hover:text-purple-800 font-medium purple-btn">
+                            Explore Options <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Additional Services -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <div class="inline-block p-2 bg-orange-100 rounded-full mb-4">
+                <i data-lucide="briefcase" class="w-6 h-6 text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-2 text-gray-900" style="font-family: 'Montserrat', sans-serif;">
+                Additional Services
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Beyond property listings, we offer comprehensive support services to ensure a smooth real estate experience
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Rental Services -->
+            <div class="feature-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100">
+                <div class="h-40 bg-cover bg-center" style="background-image: url('/media/photos/download_2.jpeg')">
+                    <div class="h-full w-full bg-gradient-to-r from-orange-600/80 to-transparent flex items-center">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-4">
+                                <i data-lucide="building" class="w-6 h-6 text-orange-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white" style="font-family: 'Montserrat', sans-serif;">
+                                Rental Services
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 mb-4">
+                        We offer a range of rental properties to suit every budget and requirement. Contact us directly for our latest rental listings.
+                    </p>
+                    <ul class="space-y-2 mb-4">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>Long-term residential rentals</span>
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>Commercial space leasing</span>
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>Vacation homes and short-term stays</span>
+                        </li>
+                    </ul>
+                    <a href="/contact_agent" class="inline-block mt-4 text-orange-600 hover:text-orange-800 font-medium text-sm flex items-center">
+                        Contact for Rentals <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Property Management -->
+            <div class="feature-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100">
+                <div class="h-40 bg-cover bg-center" style="background-image: url('/media/photos/download_3.jpeg')">
+                    <div class="h-full w-full bg-gradient-to-r from-orange-600/80 to-transparent flex items-center">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-4">
+                                <i data-lucide="clipboard-list" class="w-6 h-6 text-orange-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white" style="font-family: 'Montserrat', sans-serif;">
+                                Property Management
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 mb-4">
+                        Let us handle the day-to-day responsibilities of property ownership with our comprehensive management services.
+                    </p>
+                    <ul class="space-y-2 mb-4">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>Tenant screening and management</span>
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>Regular maintenance and inspections</span>
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>Rent collection and financial reporting</span>
+                        </li>
+                    </ul>
+                    <a href="/contact_agent" class="inline-block mt-4 text-orange-600 hover:text-orange-800 font-medium text-sm flex items-center">
+                        Learn More <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Investment Advisory -->
+            <div class="feature-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100">
+                <div class="h-40 bg-cover bg-center" style="background-image: url('/media/photos/download_4.jpeg')">
+                    <div class="h-full w-full bg-gradient-to-r from-orange-600/80 to-transparent flex items-center">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-4">
+                                <i data-lucide="line-chart" class="w-6 h-6 text-orange-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white" style="font-family: 'Montserrat', sans-serif;">
+                                Investment Advisory
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 mb-4">
+                        Make informed investment decisions with expert guidance from our real estate investment specialists.
+                    </p>
+                    <ul class="space-y-2 mb-4">
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>Market analysis and growth projections</span>
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>ROI calculations and risk assessment</span>
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600">
+                            <i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>
+                            <span>Portfolio diversification strategies</span>
+                        </li>
+                    </ul>
+                    <a href="/contact_agent" class="inline-block mt-4 text-orange-600 hover:text-orange-800 font-medium text-sm flex items-center">
+                        Get Advice <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <div class="inline-block p-2 bg-orange-100 rounded-full mb-4">
+                <i data-lucide="map" class="w-6 h-6 text-orange-600"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-2 text-gray-900" style="font-family: 'Montserrat', sans-serif;">
+                Our Process
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                We follow a structured approach to ensure a smooth and satisfactory experience
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Step 1 -->
+            <div class="bg-white rounded-xl p-6 shadow-md relative">
+                <div class="absolute -top-4 -left-4 w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                    1
+                </div>
+                <div class="pt-6">
+                    <div class="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-5">
+                        <i data-lucide="message-square" class="w-8 h-8 text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center text-gray-900" style="font-family: 'Montserrat', sans-serif;">
+                        Consultation
+                    </h3>
+                    <p class="text-gray-700 text-center">
+                        We listen to your requirements and preferences to understand exactly what you're looking for.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-white rounded-xl p-6 shadow-md relative">
+                <div class="absolute -top-4 -left-4 w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                    2
+                </div>
+                <div class="pt-6">
+                    <div class="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-5">
+                        <i data-lucide="search" class="w-8 h-8 text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center text-gray-900" style="font-family: 'Montserrat', sans-serif;">
+                        Property Search
+                    </h3>
+                    <p class="text-gray-700 text-center">
+                        We curate a selection of properties that match your criteria and arrange viewings.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-white rounded-xl p-6 shadow-md relative">
+                <div class="absolute -top-4 -left-4 w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                    3
+                </div>
+                <div class="pt-6">
+                    <div class="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-5">
+                        <i data-lucide="file-text" class="w-8 h-8 text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center text-gray-900" style="font-family: 'Montserrat', sans-serif;">
+                        Documentation
+                    </h3>
+                    <p class="text-gray-700 text-center">
+                        We handle all the paperwork and legal aspects to ensure a smooth transaction process.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-white rounded-xl p-6 shadow-md relative">
+                <div class="absolute -top-4 -left-4 w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                    4
+                </div>
+                <div class="pt-6">
+                    <div class="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-5">
+                        <i data-lucide="home" class="w-8 h-8 text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-center text-gray-900" style="font-family: 'Montserrat', sans-serif;">
+                        Handover
+                    </h3>
+                    <p class="text-gray-700 text-center">
+                        We assist with the final handover process and ensure you're fully satisfied with your new property.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-16 bg-gradient-to-r from-orange-600 to-orange-800 relative overflow-hidden">
+    <div class="absolute right-0 bottom-0 opacity-10">
+        <i data-lucide="home" class="w-64 h-64 text-white"></i>
+    </div>
+    <div class="absolute left-0 top-0 opacity-10">
+        <i data-lucide="building" class="w-64 h-64 text-white"></i>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white" style="font-family: 'Montserrat', sans-serif;">
+                Ready to Find Your Dream Property?
+            </h2>
+            <p class="text-xl text-orange-100 mb-8">
+                Our experts are ready to assist you with all your real estate needs. Let's start your journey today.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="/contact_agent" class="inline-flex items-center px-6 py-3 bg-white text-orange-600 font-medium rounded-lg hover:bg-orange-50 transition duration-300 pulse-animation">
+                    <i data-lucide="user" class="w-5 h-5 mr-2"></i>
+                    Speak to an Agent
+                </a>
+                <a href="/" class="inline-flex items-center px-6 py-3 border border-white text-white font-medium rounded-lg hover:bg-white/10 transition duration-300">
+                    <i data-lucide="search" class="w-5 h-5 mr-2"></i>
+                    Browse Properties
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Lucide icons
+        lucide.createIcons();
+    });
+</script>
 {%endblock%}
