@@ -235,7 +235,12 @@ def filter_obj(request):
     city = request.GET.get("city")
     size = request.GET.get("size")
     price_range = request.GET.get("price_range")
-    projects_in_city = Property.objects.filter(city=city).values_list('title', flat=True)
+    
+    # Initialize selected_project_in_city
+    selected_project_in_city = []
+    
+    # Only get projects_in_city if city is not 'City'
+    projects_in_city = Property.objects.filter(city=city).values_list('title', flat=True) if city != 'City' else []
     
     price_ranges = {
         '10': (1000000, 2000000),
@@ -251,8 +256,8 @@ def filter_obj(request):
     # Start with all properties
     properties = Property.objects.all()
 
-    # Apply city filter if specified and city is not 0
-    if city and city != '0':
+    # Apply city filter only if city is specified and not 'City' or '0'
+    if city and city != '0' and city != 'City':
         properties = properties.filter(city=city)
 
     # Apply size filter if specified and size is not 0
@@ -268,7 +273,7 @@ def filter_obj(request):
 
     # Retrieve distinct cities and sizes
     cities = Property.objects.values_list('city', flat=True).distinct()
-    cities=sorted(set(cities))
+    cities = sorted(set(cities))
     bedrooms = Property.objects.values_list('bedrooms', flat=True).distinct().order_by('bedrooms')
 
     # Apply additional filters based on projects in city, if applicable
