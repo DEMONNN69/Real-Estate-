@@ -60,34 +60,36 @@ document.addEventListener("DOMContentLoaded", function () {
     
         properties.forEach(property => {
             const propertyDiv = document.createElement("div");
-            propertyDiv.className = "property w-[180px] h-[310px] lg:w-[250px] lg:h-[428px] flex flex-col relative group";
+            propertyDiv.className = "property-card flex-shrink-0 bg-white rounded-lg overflow-hidden shadow-md w-72 sm:w-[280px] lg:w-[300px]";
     
             // Create the anchor tag wrapping the entire property div content
             const anchorTag = document.createElement("a");
             anchorTag.href = "/prop_view/" + property.id; // Link to the specific property page
-            anchorTag.className = "w-full h-full"; // Make sure anchor tag covers the whole area
-            anchorTag.style.display = "block"; // Make anchor tag a block element
+            anchorTag.className = "block"; // Make anchor tag a block element
     
             // Set the innerHTML of the anchor tag (wrap all content in it)
             anchorTag.innerHTML = `
-                <div class="display h-full w-full overflow-hidden rounded-2xl">
-                    <img src="/media/${property.main_img}" alt="Beautiful Family Home"
-                        class="object-cover object-center w-full h-full group-hover:scale-110 duration-500">
-                </div>
-    
-                <div class="description h-[43%] lg:h-[37%] lg:mt-[111%] w-full space-y-2 px-2 py-1 absolute bottom-0 backdrop-blur-lg rounded-2xl lg:space-y-4 text-sm">
-                    <h2 class="font-semibold !text-xl price">₹ ${property.price2}</h2>
-                    <div class="flex gap-x-5 h-6 overflow-hidden text-white">
-                        <p>${property.title}</p>
-                        <p>|</p>
-                        <p>${property.bedrooms}BHK</p>
+                <div class="relative h-48 overflow-hidden">
+                    <img src="/media/${property.main_img}" alt="${property.title}" class="property-image w-full h-full object-cover">
+                    <div class="absolute top-0 right-0 bg-orange-600 text-white text-xs font-medium px-2 py-1 m-2 rounded">
+                        ${property.property_status || "For Sale"}
                     </div>
-                    <p class="text-white">${property.city} - ${property.zip_code}</p>
-                    <div class="flex justify-between items-center rounded-full border border-black px-2 -mx-1">
-                        <span class="text-xs">More details</span>
-                        <span class="group-hover:rotate-[360deg] duration-500">
-                            <img src="/media/icons/arrow.png" alt="" class="h-6">
-                        </span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-lg text-gray-800">₹ ${property.price2}</h3>
+                    <div class="flex items-center text-gray-700 text-sm mb-1">
+                        <p>${property.title}</p>
+                        <span class="mx-1">•</span>
+                        <p>${property.bedrooms} BHK</p>
+                    </div>
+                    <div class="flex items-center text-gray-600 text-sm mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <p>${property.city} - ${property.zip_code}</p>
+                    </div>
+                    
+                    <div class="pt-3 border-t border-gray-100 flex justify-between items-center">
+                        <span class="text-xs text-orange-600 font-medium">More details</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-600 transform transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                     </div>
                 </div>
             `;
