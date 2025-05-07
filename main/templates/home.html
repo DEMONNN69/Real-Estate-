@@ -6,7 +6,18 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCPR-HOMES | Your Trusted Real Estate Partner</title>
+    <meta name="description" content="Find your dream property with NCPR-HOMES - Browse our premium listings of residential and commercial properties, ready-to-move homes, and investment opportunities.">
+    <meta name="keywords" content="real estate, property listings, home search, buy property, NCPR Homes, investment properties">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="NCPR Homes">
+    <meta property="og:title" content="NCPR-HOMES | Find Your Dream Property">
+    <meta property="og:description" content="Browse premium listings of residential and commercial properties. Find your dream home with NCPR-HOMES.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ncprhomes.com/">
+    <meta property="og:image" content="/media/icons/image1.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://ncprhomes.com/">
+    <title>NCPR-HOMES | Find Your Dream Property</title>
     {% tailwind_css %}
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -130,9 +141,31 @@
             background-size: 1em;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <script src="{% static 'js/pincode.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+    <script src="{% static 'js/pincode.js' %}" defer></script>
+    <!-- Structured Data for Real Estate Business -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "RealEstateAgent",
+            "name": "NCPR Homes",
+            "image": "/media/icons/image1.png",
+            "url": "https://ncprhomes.com",
+            "telephone": "+91 84528-62301",
+            "email": "contact@ncprhomes.com",
+            "description": "NCPR Homes is a leading real estate agency helping clients find their dream properties through transparent and professional service.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "India"
+            },
+            "sameAs": [
+                "https://www.facebook.com/people/NCPR-HOMES/61550468357089/",
+                "https://www.youtube.com/channel/UCQ5ufNstvJGst642QJCFGwA",
+                "https://www.linkedin.com/company/ncpr-homes/"
+            ]
+        }
+    </script>
 </head>
 
 <body class="bg-white">

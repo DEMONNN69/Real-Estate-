@@ -6,6 +6,17 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{prop.title}} - {{prop.bedrooms}} BHK property in {{prop.city}}. {{prop.property_status}} property by {{prop.devloper}} at {{prop.price2}}. View details, amenities, and contact agent now.">
+    <meta name="keywords" content="{{prop.title}}, {{prop.bedrooms}} BHK, {{prop.property_status}}, {{prop.city}}, {{prop.devloper}}, real estate, property, NCPR Homes">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="NCPR Homes">
+    <meta property="og:title" content="{{prop.title}} | NCPR-HOMES">
+    <meta property="og:description" content="{{prop.bedrooms}} BHK {{prop.property_status}} property in {{prop.city}} by {{prop.devloper}}. View details now!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ncprhomes.com/prop_view/{{prop.id}}">
+    <meta property="og:image" content="/media/{{ prop.main_img }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://ncprhomes.com/prop_view/{{prop.id}}">
     <title>{{prop.title}} | NCPR-HOMES</title>
     {% tailwind_css %}
     <style>
@@ -519,8 +530,39 @@
             z-index: 10;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.1/dist/css/splide.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.1/dist/js/splide.min.js" defer></script>
+    <!-- Structured Data for Real Estate Property -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "RealEstateListing",
+            "name": "{{prop.title}}",
+            "description": "{{prop.title}} - {{prop.bedrooms}} BHK property in {{prop.city}}. {{prop.property_status}} property by {{prop.devloper}}.",
+            "image": "/media/{{ prop.main_img }}",
+            "url": "https://ncprhomes.com/prop_view/{{prop.id}}",
+            "offers": {
+                "@type": "Offer",
+                "price": "{{prop.price}}",
+                "priceCurrency": "INR"
+            },
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "{{prop.address}}",
+                "addressLocality": "{{prop.city}}",
+                "postalCode": "{{prop.zip_code}}",
+                "addressCountry": "IN"
+            },
+            "numberOfRooms": "{{prop.bedrooms}}",
+            "amenities": [
+                {% for amenity in prop.amenities.all %}
+                "{{amenity.name}}"{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    </script>
 </head>
 
 <body class="bg-white text-gray-900">
